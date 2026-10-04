@@ -57,6 +57,8 @@ npm run deploy
 - **Resend** — free tier, set via `wrangler secret put RESEND_API_KEY` (used by the daily streak-reminder Cron Trigger).
 
 ## Status
+**Last verified: working end-to-end in a real browser** (signup → skill tree → lesson → quiz → XP/streak → result), not just via curl.
+
 - [x] Milestone 1 — Scaffolding
 - [x] Milestone 2 — DB schema (v1 only; hearts/badges deferred to v2)
 - [x] Milestone 3 — Auth backend (verified via curl: signup/login/session/logout, cookie flags, revocation)
@@ -69,10 +71,19 @@ npm run deploy
       needs a real `VITE_POSTHOG_KEY`; Resend Cron handler stubbed but needs a real `RESEND_API_KEY` + live test
 - [x] Milestone 7 — Frontend auth & shell (Login/Signup cross-links, RequireAuth, router, Legal+disclaimer footer)
 - [x] Milestone 8 — Skill tree & lesson player: real unit list (lock/complete state), lesson list, full
-      concept→quiz→result flow verified end-to-end via curl through both Vite dev proxy and the Worker directly
+      concept→quiz→result flow confirmed working live in-browser
 - [ ] Milestone 9 — Profile page UI (backend route exists; no page yet) + reminder-email toggle UI
 - [ ] Milestone 10 — Build & deploy (remote D1, real PostHog/Resend keys, `wrangler deploy`)
 - [ ] Milestone 11 — Hardening (zod validation, consistent error handling)
+
+## Bugs found & fixed during manual testing
+- **Session cookie `Secure` flag in local dev**: was hardcoded `true`, which some browsers (Safari) silently
+  refuse to store over plain `http://localhost` — login appeared to succeed but every following authenticated
+  request 401'd. Now conditional on `APP_ENV !== 'development'`; still enforced outside local dev.
+- **SPA fallback not reached for client-router paths** (e.g. `/login` 404'd when hit directly): the Worker's
+  Hono app needed an explicit catch-all (`app.get('*', c => c.env.ASSETS.fetch(c.req.raw))`) — Workers don't
+  auto-fall-back to `[assets]` SPA mode once a `main` script is handling the request.
+
 
 ## Remaining before this is more than a 1-unit proof of concept
 - Author the rest of the curriculum (`worker/seed/units.json`) past unit 1 — see candidate outline in the plan doc.
