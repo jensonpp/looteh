@@ -105,6 +105,23 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
       type-in (via XP-free `POST /questions/:id/check`; answer normalization in
       `worker/src/lib/text.ts`). Result screen gained confetti, XP breakdown, hearts/combo stats.
       39/39 tests, `tsc --noEmit` clean, verified live on production.
+- [x] Duolingo sync stage 1 — meta-game: daily quests (3/day, gem rewards, claim flow), 7 achievements
+      (auto-awarded on lesson complete), gems currency, streak freezes (max 2, consumed by
+      freeze-aware streak logic), and the gem shop (streak freeze 30💎, heart refill 20💎). Migration
+      0006, quests card + shop modal on skill tree. 43/43 tests.
+- [x] Duolingo sync stage 2 — weekly XP leagues: bronze→diamond tiers, Monday-UTC cohorts of 30,
+      lazy weekly rollover (top 7 promote / bottom 5 demote on first activity of the new week),
+      leaderboard page with promote/demote zone markers. Migration 0007, `/api/meta/league`,
+      lesson-complete hooks membership. 43/43 tests.
+- [x] Duolingo sync stage 3 — winding-path skill tree: `/api/tree` returns all units + per-lesson
+      status in one call; path UI rebuilt with colored unit bands, circular nodes snaking down the
+      page, current-lesson START flag, locked units grayed with 🔒, and a golden 🎁 chest at each
+      unit's end that lights up when the unit is completed.
+- [x] Duolingo sync stage 4 — practice hub: `GET /api/practice/mistakes` surfaces ~10 most-recently-
+      missed questions (from the events table); PracticePage mini-player (no hearts, full XP, inline
+      explanations); `/units/:id/lessons` returns `lastCompletedAt` so completed lessons older than
+      7 days get a stale "🎯 Practice" pill. Migrations 0006+0007 applied to remote D1; all four
+      stages verified live on production (quests, league, tree, practice). 43/43 tests.
 
 ## Bugs found & fixed during manual testing
 - **Session cookie `Secure` flag in local dev**: was hardcoded `true`, which some browsers (Safari) silently
