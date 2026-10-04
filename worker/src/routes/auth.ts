@@ -6,6 +6,7 @@ import { hashPassword, verifyPassword } from '../lib/password'
 import { signSessionJwt, verifySessionJwt } from '../lib/jwt'
 import { newId } from '../lib/db'
 import { attachUser, requireAuth, SESSION_COOKIE } from '../middleware/auth'
+import { loginSchema, parseJsonBody, signupSchema } from '../lib/validation'
 
 const auth = new Hono<{ Bindings: Env; Variables: Variables }>()
 auth.use('*', attachUser)
@@ -22,18 +23,10 @@ function cookieOpts(c: Context<{ Bindings: Env; Variables: Variables }>) {
   }
 }
 
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-
 auth.post('/signup', async (c) => {
-  const body = await c.req.json<{ email?: string; password?: string }>().catch(() => ({}) as { email?: string; password?: string })
-  const email = body.email?.trim().toLowerCase()
-  const password = body.password
-
-  if (!email || !isValidEmail(email) || !password || password.length < 8) {
-    return c.json({ error: 'invalid_input', message: 'Valid email and password (min 8 chars) required.' }, 400)
-  }
+  const body = await parseJsonBody(c, signupSchema)
+  if (!body.success) return body.response
+  const { email, password } = body.data
 
   const existing = await c.env.DB.prepare('SELECT id FROM users WHERE email = ?').bind(email).first()
   if (existing) {
@@ -68,13 +61,9 @@ auth.post('/signup', async (c) => {
 })
 
 auth.post('/login', async (c) => {
-  const body = await c.req.json<{ email?: string; password?: string }>().catch(() => ({}) as { email?: string; password?: string })
-  const email = body.email?.trim().toLowerCase()
-  const password = body.password
-
-  if (!email || !password) {
-    return c.json({ error: 'invalid_input' }, 400)
-  }
+  const body = await parseJsonBody(c, loginSchema)
+  if (!body.success) return body.response
+  const { email, password } = body.data
 
   const user = await c.env.DB.prepare('SELECT id, email, password_hash FROM users WHERE email = ?')
     .bind(email)

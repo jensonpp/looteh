@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import type { Env, Variables } from '../types'
 import { attachUser, requireAuth } from '../middleware/auth'
+import { parseJsonBody, preferencesSchema } from '../lib/validation'
 
 const profile = new Hono<{ Bindings: Env; Variables: Variables }>()
 profile.use('*', attachUser, requireAuth)
@@ -24,16 +25,12 @@ profile.get('/', async (c) => {
 
 profile.patch('/preferences', async (c) => {
   const user = c.var.user!
-  const body = await c.req
-    .json<{ emailRemindersEnabled?: boolean }>()
-    .catch(() => ({}) as { emailRemindersEnabled?: boolean })
-
-  if (typeof body.emailRemindersEnabled !== 'boolean') {
-    return c.json({ error: 'invalid_input' }, 400)
-  }
+  const body = await parseJsonBody(c, preferencesSchema)
+  if (!body.success) return body.response
+  const { emailRemindersEnabled } = body.data
 
   await c.env.DB.prepare('UPDATE user_stats SET email_reminders_enabled = ? WHERE user_id = ?')
-    .bind(body.emailRemindersEnabled ? 1 : 0, user.userId)
+    .bind(emailRemindersEnabled ? 1 : 0, user.userId)
     .run()
 
   return c.json({ ok: true })

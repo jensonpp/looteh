@@ -49,6 +49,261 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "budgeting-basics",
+      "title": "Budgeting Basics",
+      "unlockRequiresUnitSlug": "money-mindset-goals",
+      "lessons": [
+        {
+          "title": "Income vs. Expenses",
+          "conceptMarkdown": "## Income vs. Expenses\n\nEvery budget starts with one equation:\n\n**Income − Expenses = Surplus (or Deficit)**\n\n- **Income** is money coming in: salary, side gigs, gifts.\n- **Expenses** are money going out: rent, food, subscriptions.\n\nIf you spend less than you earn, you have a **surplus** — money you can save or invest. If you spend more than you earn, you have a **deficit**, and the gap usually goes on a credit card, which makes next month harder.\n\nA budget is simply a *plan* for this equation, made *before* the month starts instead of discovering the result after.",
+          "questions": [
+            {
+              "prompt": "You earn $3,000 a month and spend $3,200. You have a...",
+              "options": [
+                { "label": "Deficit of $200", "isCorrect": true },
+                { "label": "Surplus of $200", "isCorrect": false },
+                { "label": "Balanced budget", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "What is a budget, most simply?",
+              "options": [
+                { "label": "A plan for your income and expenses made in advance", "isCorrect": true },
+                { "label": "A punishment for overspending", "isCorrect": false },
+                { "label": "A bank account with restrictions", "isCorrect": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "The 50/30/20 Rule",
+          "conceptMarkdown": "## The 50/30/20 Rule\n\nA simple starting budget for your *take-home pay* (what actually hits your bank account after taxes):\n\n- **50% Needs** — rent, groceries, utilities, insurance, minimum debt payments\n- **30% Wants** — dining out, streaming, hobbies, travel\n- **20% Savings & extra debt payoff** — emergency fund, investing, extra payments\n\nThe exact split doesn't matter; the *habit* does. If 50/30/20 doesn't fit your city's rent, try 60/20/20 — just keep savings above zero.\n\n**Pro tip:** move savings out on payday, not at month's end. What's left over tends to vanish; what's moved first tends to stick.",
+          "questions": [
+            {
+              "prompt": "In the 50/30/20 rule, what does the 20% represent?",
+              "options": [
+                { "label": "Savings and extra debt payoff", "isCorrect": true },
+                { "label": "Rent and utilities", "isCorrect": false },
+                { "label": "Dining out and entertainment", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "Why save money on payday instead of at the end of the month?",
+              "options": [
+                { "label": "Money moved first tends to stay saved; leftovers tend to get spent", "isCorrect": true },
+                { "label": "Banks only accept deposits on payday", "isCorrect": false },
+                { "label": "It earns double interest that way", "isCorrect": false }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "tracking-spending",
+      "title": "Tracking Spending",
+      "unlockRequiresUnitSlug": "budgeting-basics",
+      "lessons": [
+        {
+          "title": "Needs vs. Wants",
+          "conceptMarkdown": "## Needs vs. Wants\n\n- **Needs** keep you housed, fed, and employable: rent, groceries, basic clothes, insurance, minimum debt payments.\n- **Wants** make life enjoyable: restaurants, games, concerts, a nicer phone.\n\nThe test is *situational*, not moral. Food is a need; a $60 dinner is a want. A phone may be a need for your job; the latest flagship model is a want.\n\nWants aren't bad — a budget with zero fun almost never survives. The goal is to **choose** your wants deliberately instead of discovering them on your credit card statement.",
+          "questions": [
+            {
+              "prompt": "Which of these is clearly a NEED?",
+              "options": [
+                { "label": "Groceries for the week", "isCorrect": true },
+                { "label": "Concert tickets", "isCorrect": false },
+                { "label": "A premium streaming bundle", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "The needs-vs-wants test is best described as...",
+              "options": [
+                { "label": "Situational — it depends on your circumstances", "isCorrect": true },
+                { "label": "Fixed — the same items for everyone, always", "isCorrect": false },
+                { "label": "Moral — wants should be eliminated", "isCorrect": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Spotting Leaks",
+          "conceptMarkdown": "## Spotting Leaks\n\nSmall recurring charges drain serious money:\n\n- A $12 subscription is **$144 a year**.\n- Three forgotten subscriptions at $15 each are **$540 a year**.\n\n**How to find your leaks:**\n\n1. Pull last month's bank and card statements.\n2. Highlight every recurring charge.\n3. For each one ask: *\"Would I sign up for this again today at 12× the price?\"*\n4. Cancel the ones that fail the test — ruthlessly. You can always re-subscribe.\n\nMost people find $50–$200/month of spending they don't miss once it's gone. That's the cheapest raise you'll ever get.",
+          "questions": [
+            {
+              "prompt": "A $12/month subscription costs how much per year?",
+              "options": [
+                { "label": "$144", "isCorrect": true },
+                { "label": "$120", "isCorrect": false },
+                { "label": "$1,200", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "What's the best question to ask about a recurring charge?",
+              "options": [
+                { "label": "\"Would I sign up for this again today at 12× the price?\"", "isCorrect": true },
+                { "label": "\"Did I use it at least once?\"", "isCorrect": false },
+                { "label": "\"Is it cheaper than my other subscriptions?\"", "isCorrect": false }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "emergency-funds",
+      "title": "Emergency Funds",
+      "unlockRequiresUnitSlug": "tracking-spending",
+      "lessons": [
+        {
+          "title": "Why You Need One",
+          "conceptMarkdown": "## Why You Need One\n\nLife throws surprises: a car repair, a medical bill, a layoff. Without savings, every surprise goes on a credit card — and debt at 20%+ interest turns one bad week into months of expensive payments. That's the **debt spiral**.\n\nAn **emergency fund** is cash reserved *only* for genuine emergencies:\n\n- ✅ Car breaks down, job loss, surprise medical bill\n- ❌ A sale on flights, a new phone, concert tickets\n\nIt's the difference between \"annoying\" and \"disaster.\" A $1,000 surprise with no savings is a crisis; with savings it's a Tuesday.",
+          "questions": [
+            {
+              "prompt": "The main purpose of an emergency fund is to...",
+              "options": [
+                { "label": "Cover genuine surprises without going into debt", "isCorrect": true },
+                { "label": "Fund vacations at short notice", "isCorrect": false },
+                { "label": "Invest in the stock market safely", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "Which of these is a proper emergency-fund use?",
+              "options": [
+                { "label": "An unexpected car repair", "isCorrect": true },
+                { "label": "A limited-time sale on flights", "isCorrect": false },
+                { "label": "Upgrading to the new iPhone", "isCorrect": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "How Much Is Enough",
+          "conceptMarkdown": "## How Much Is Enough\n\nTwo targets, in order:\n\n1. **Starter fund: $500–$1,000.** Small, fast to reach, covers most common surprises (tire, copay, small repair).\n2. **Full fund: 3–6 months of *essential* expenses.** Rent, food, utilities, minimum payments — not your full lifestyle. This is what protects you from a job loss.\n\n**Where to keep it:** a high-yield savings account (HYSA). It must be:\n\n- **Liquid** — accessible within a day or two\n- **Boring** — not stocks; you can't afford a 30% drop the week you need it\n- **Separate** — a different account, so it doesn't get spent casually",
+          "questions": [
+            {
+              "prompt": "A full emergency fund typically covers how many months of ESSENTIAL expenses?",
+              "options": [
+                { "label": "3–6 months", "isCorrect": true },
+                { "label": "1–2 weeks", "isCorrect": false },
+                { "label": "10–12 months", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "Where should an emergency fund live?",
+              "options": [
+                { "label": "A high-yield savings account, separate from spending money", "isCorrect": true },
+                { "label": "Stock index funds, for growth", "isCorrect": false },
+                { "label": "Your checking account, mixed with daily spending", "isCorrect": false }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "understanding-debt",
+      "title": "Understanding Debt",
+      "unlockRequiresUnitSlug": "emergency-funds",
+      "lessons": [
+        {
+          "title": "Good vs. Bad Debt",
+          "conceptMarkdown": "## Good vs. Bad Debt\n\nDebt isn't automatically evil — the question is *what the borrowed money buys*:\n\n- **Potentially good:** debt that buys an appreciating asset or earning power — a mortgage on a reasonable home, a student loan for a degree with real job prospects, a business loan for a proven plan.\n- **Usually bad:** debt that funds consumption — credit card balances on dinners out, financing a vacation, payday loans for everyday bills.\n\nTwo rules of thumb:\n\n1. Borrow for things that *outlast the loan*.\n2. Never borrow at high interest for something that loses value (or is gone immediately).",
+          "questions": [
+            {
+              "prompt": "Which is the BEST example of potentially good debt?",
+              "options": [
+                { "label": "A student loan for a degree with strong job prospects", "isCorrect": true },
+                { "label": "A credit card balance from a vacation", "isCorrect": false },
+                { "label": "A payday loan to cover this month's bills", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "The key question for judging debt is...",
+              "options": [
+                { "label": "What does the borrowed money actually buy?", "isCorrect": true },
+                { "label": "Is the lender a big bank?", "isCorrect": false },
+                { "label": "Did a friend also take this loan?", "isCorrect": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "APR Basics",
+          "conceptMarkdown": "## APR Basics\n\n**APR (Annual Percentage Rate)** is the yearly cost of borrowing, as a percentage. A $1,000 balance at 24% APR costs about **$240/year** in interest.\n\nTypical APR ranges:\n\n- Payday loans: **300%+** (a $500 two-week loan can cost $75+ in fees)\n- Credit cards: **20–30%**\n- Auto loans: **5–10%**\n- Mortgages: **3–7%**\n\n**The minimum-payment trap:** card minimums are set barely above interest. Pay only the minimum on $3,000 at 24% and you'll spend *years* paying it off — mostly interest. Always pay more than the minimum, and treat high-APR balances as your top priority after the starter emergency fund.",
+          "questions": [
+            {
+              "prompt": "Roughly how much interest per year does a $1,000 balance at 24% APR cost?",
+              "options": [
+                { "label": "About $240", "isCorrect": true },
+                { "label": "About $24", "isCorrect": false },
+                { "label": "About $2,400", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "Why are payday loans considered dangerous?",
+              "options": [
+                { "label": "Their effective APRs can exceed 300%", "isCorrect": true },
+                { "label": "They require collateral like your house", "isCorrect": false },
+                { "label": "They are always for larger amounts than credit cards", "isCorrect": false }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "credit-scores",
+      "title": "Credit Scores",
+      "unlockRequiresUnitSlug": "understanding-debt",
+      "lessons": [
+        {
+          "title": "What Affects Your Score",
+          "conceptMarkdown": "## What Affects Your Score\n\nA credit score is a number (300–850) predicting how reliably you repay. The big factors:\n\n- **Payment history (~35%)** — the single biggest one. One missed payment can hurt for years.\n- **Credit utilization (~30%)** — how much of your limit you use. Keep it **under 30%**, lower is better.\n- **Length of history (~15%)** — older accounts help; don't close your oldest card without reason.\n- **New credit (~10%)** — a burst of applications dings your score short-term.\n- **Credit mix (~10%)** — variety helps slightly; don't force it.\n\n**The two levers that matter most:** pay every bill on time, and keep balances low relative to limits.",
+          "questions": [
+            {
+              "prompt": "Which factor has the BIGGEST impact on a typical credit score?",
+              "options": [
+                { "label": "Payment history", "isCorrect": true },
+                { "label": "Credit mix", "isCorrect": false },
+                { "label": "Number of bank accounts", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "As a rule of thumb, keep credit card utilization below...",
+              "options": [
+                { "label": "30% of your limit", "isCorrect": true },
+                { "label": "90% of your limit", "isCorrect": false },
+                { "label": "It doesn't matter", "isCorrect": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Why It Matters",
+          "conceptMarkdown": "## Why It Matters\n\nYour score follows you into more places than you'd expect:\n\n- **Loans & cards:** a strong score can mean a mortgage at 6% instead of 8% — on a $300,000 loan, that's **tens of thousands of dollars**.\n- **Renting:** landlords often check credit; a weak score can mean a bigger deposit or a rejection.\n- **Insurance & utilities:** many set prices or deposits partly on credit.\n- **Jobs:** some employers check credit reports (not scores) for financial roles.\n\n**The cheapest way to protect it:** automate at least the minimum payments on every account. On-time history builds itself; one missed payment undoes months of good behavior.",
+          "questions": [
+            {
+              "prompt": "On a large mortgage, a better credit score can save you...",
+              "options": [
+                { "label": "Tens of thousands of dollars in interest", "isCorrect": true },
+                { "label": "Nothing — rates are fixed for everyone", "isCorrect": false },
+                { "label": "A few dollars a year", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "What's the cheapest way to protect your credit score?",
+              "options": [
+                { "label": "Automate at least minimum payments on every account", "isCorrect": true },
+                { "label": "Close all your credit cards", "isCorrect": false },
+                { "label": "Apply for new credit often to show activity", "isCorrect": false }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }

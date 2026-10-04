@@ -84,7 +84,13 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
 - [x] Milestone 10 — Remote deploy: live at https://finlit.jensonsworld.workers.dev (remote D1 created +
       migrated, JWT_SECRET set as a Worker secret, deployed via `wrangler deploy --env production`) —
       verified via curl: signup/login/logout/units/profile all work against the live URL
-- [ ] Milestone 11 — Hardening (zod validation; consistent error handling partially done — see `app.onError` below)
+- [x] Milestone 11 — Hardening: zod validation on all route bodies (`worker/src/lib/validation.ts` +
+      `parseJsonBody` helper; 400 with field-level messages on bad input), verified live via curl;
+      30/30 tests pass, `tsc --noEmit` clean. Consistent error envelope via `app.onError` (see below).
+- [x] Curriculum units 1–6 authored & seeded (Money Mindset & Goals, Budgeting Basics, Tracking Spending,
+      Emergency Funds, Understanding Debt, Credit Scores — 12 lessons, 24 questions). Seed generator is
+      now incremental: new units compile into the next numbered migration, so content can ship to
+      already-migrated databases (see `docs/CONTENT_AUTHORING.md`). Units 7–20 from the plan outline remain.
 
 ## Bugs found & fixed during manual testing
 - **Session cookie `Secure` flag in local dev**: was hardcoded `true`, which some browsers (Safari) silently
@@ -113,8 +119,8 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
   `message` field suppressed when `APP_ENV === 'production'` to avoid leaking internals to real users.
 
 
-## Remaining before this is more than a 1-unit proof of concept
-- Author the rest of the curriculum (`worker/seed/units.json`) past unit 1 — see candidate outline in the plan doc.
+## Remaining before this is more than a 6-unit course
+- Author the rest of the curriculum (`worker/seed/units.json`) past unit 6 — see candidate outline in the plan doc.
 - Set up real PostHog + Resend accounts and verify the live retention loop (see README "Required third-party accounts").
-- Finish Milestone 11 hardening (zod input validation on all route bodies).
 - Wire up CI auto-deploy on push (Cloudflare Workers Builds, Git-connected) — currently deploys are manual via `wrangler deploy --env production`.
+- Ship units 2–6 to production: `npx wrangler d1 migrations apply finlit-db --remote` + redeploy (content is local-only until then).

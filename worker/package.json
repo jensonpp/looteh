@@ -12,7 +12,8 @@
     "db:migrate:remote": "wrangler d1 migrations apply finlit-db --remote"
   },
   "dependencies": {
-    "hono": "^4.6.0"
+    "hono": "^4.6.0",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.6.0",

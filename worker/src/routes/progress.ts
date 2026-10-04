@@ -4,6 +4,7 @@ import { attachUser, requireAuth } from '../middleware/auth'
 import { todayUtc } from '../lib/db'
 import { nextStreakState, xpForCorrectAnswer, xpForLessonComplete } from '../lib/gamification'
 import { logEvent } from '../lib/events'
+import { answerSchema, lessonCompleteSchema, parseJsonBody } from '../lib/validation'
 
 const progress = new Hono<{ Bindings: Env; Variables: Variables }>()
 progress.use('*', attachUser, requireAuth)
@@ -11,9 +12,9 @@ progress.use('*', attachUser, requireAuth)
 progress.post('/questions/:questionId/answer', async (c) => {
   const user = c.var.user!
   const questionId = c.req.param('questionId')
-  const body = await c.req.json<{ optionId?: string }>().catch(() => ({}) as { optionId?: string })
-
-  if (!body.optionId) return c.json({ error: 'invalid_input' }, 400)
+  const body = await parseJsonBody(c, answerSchema)
+  if (!body.success) return body.response
+  const { optionId } = body.data
 
   const question = await c.env.DB.prepare('SELECT id, lesson_id FROM questions WHERE id = ?')
     .bind(questionId)
@@ -21,7 +22,7 @@ progress.post('/questions/:questionId/answer', async (c) => {
   if (!question) return c.json({ error: 'not_found' }, 404)
 
   const option = await c.env.DB.prepare('SELECT id, is_correct FROM answer_options WHERE id = ? AND question_id = ?')
-    .bind(body.optionId, questionId)
+    .bind(optionId, questionId)
     .first<{ id: string; is_correct: number }>()
   if (!option) return c.json({ error: 'invalid_option' }, 400)
 
@@ -70,11 +71,9 @@ progress.post('/lessons/:lessonId/start', async (c) => {
 progress.post('/lessons/:lessonId/complete', async (c) => {
   const user = c.var.user!
   const lessonId = c.req.param('lessonId')
-  const body = await c.req
-    .json<{ correctCount?: number; totalQuestions?: number }>()
-    .catch(() => ({}) as { correctCount?: number; totalQuestions?: number })
-  const correctCount = body.correctCount ?? 0
-  const totalQuestions = body.totalQuestions ?? 0
+  const body = await parseJsonBody(c, lessonCompleteSchema)
+  if (!body.success) return body.response
+  const { correctCount, totalQuestions } = body.data
   const score = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0
 
   const stats = await c.env.DB.prepare('SELECT streak_count, last_active_date FROM user_stats WHERE user_id = ?')
