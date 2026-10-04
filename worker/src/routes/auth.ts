@@ -1,3 +1,4 @@
+import type { Context } from 'hono'
 import { Hono } from 'hono'
 import { setCookie, deleteCookie, getCookie } from 'hono/cookie'
 import type { Env, Variables } from '../types'
@@ -9,12 +10,16 @@ import { attachUser, requireAuth, SESSION_COOKIE } from '../middleware/auth'
 const auth = new Hono<{ Bindings: Env; Variables: Variables }>()
 auth.use('*', attachUser)
 
-const COOKIE_OPTS = {
-  httpOnly: true,
-  secure: true,
-  sameSite: 'Strict' as const,
-  path: '/',
-  maxAge: 60 * 60 * 24 * 30,
+// `Secure` cookies are silently dropped by some browsers (e.g. Safari) over plain
+// http://localhost in local dev — only require it outside local development.
+function cookieOpts(c: Context<{ Bindings: Env; Variables: Variables }>) {
+  return {
+    httpOnly: true,
+    secure: c.env.APP_ENV !== 'development',
+    sameSite: 'Strict' as const,
+    path: '/',
+    maxAge: 60 * 60 * 24 * 30,
+  }
 }
 
 function isValidEmail(email: string): boolean {
@@ -57,7 +62,7 @@ auth.post('/signup', async (c) => {
     .run()
 
   const token = await signSessionJwt({ sub: userId, sid: sessionId }, c.env.JWT_SECRET)
-  setCookie(c, SESSION_COOKIE, token, COOKIE_OPTS)
+  setCookie(c, SESSION_COOKIE, token, cookieOpts(c))
 
   return c.json({ user: { id: userId, email } }, 201)
 })
@@ -85,7 +90,7 @@ auth.post('/login', async (c) => {
     .run()
 
   const token = await signSessionJwt({ sub: user.id, sid: sessionId }, c.env.JWT_SECRET)
-  setCookie(c, SESSION_COOKIE, token, COOKIE_OPTS)
+  setCookie(c, SESSION_COOKIE, token, cookieOpts(c))
 
   return c.json({ user: { id: user.id, email: user.email } })
 })
