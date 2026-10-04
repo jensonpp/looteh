@@ -98,6 +98,13 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
       Putting It Together, matching the plan doc's 20-unit outline. Incremental generator emitted
       `0004_seed_content.sql` (14 new units; 1–6 skipped), applied locally and verified: 20 units,
       unlock chain intact (completing unit 1 unlocks unit 2), 30/30 tests, `tsc --noEmit` clean.
+- [x] Duolingo-style lesson experience: `explanation` on all 80 questions (migration 0005, applied
+      local + remote), rebuilt lesson player with interleaved teach→quiz steps, hearts (5) with
+      fail/retry screen, combo streaks, progress bar, and a feedback panel showing the correct answer
+      + explanation after every response. New exercise variety: multiple-choice, true/false, and
+      type-in (via XP-free `POST /questions/:id/check`; answer normalization in
+      `worker/src/lib/text.ts`). Result screen gained confetti, XP breakdown, hearts/combo stats.
+      39/39 tests, `tsc --noEmit` clean, verified live on production.
 
 ## Bugs found & fixed during manual testing
 - **Session cookie `Secure` flag in local dev**: was hardcoded `true`, which some browsers (Safari) silently
