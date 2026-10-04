@@ -4,7 +4,8 @@ import { attachUser, requireAuth } from '../middleware/auth'
 import { todayUtc } from '../lib/db'
 import { nextStreakState, xpForCorrectAnswer, xpForLessonComplete } from '../lib/gamification'
 import { logEvent } from '../lib/events'
-import { answerSchema, lessonCompleteSchema, parseJsonBody } from '../lib/validation'
+import { normalizeAnswer } from '../lib/text'
+import { answerSchema, checkSchema, lessonCompleteSchema, parseJsonBody } from '../lib/validation'
 
 const progress = new Hono<{ Bindings: Env; Variables: Variables }>()
 progress.use('*', attachUser, requireAuth)
@@ -16,15 +17,19 @@ progress.post('/questions/:questionId/answer', async (c) => {
   if (!body.success) return body.response
   const { optionId } = body.data
 
-  const question = await c.env.DB.prepare('SELECT id, lesson_id FROM questions WHERE id = ?')
+  const question = await c.env.DB.prepare('SELECT id, lesson_id, explanation FROM questions WHERE id = ?')
     .bind(questionId)
-    .first<{ id: string; lesson_id: string }>()
+    .first<{ id: string; lesson_id: string; explanation: string | null }>()
   if (!question) return c.json({ error: 'not_found' }, 404)
 
   const option = await c.env.DB.prepare('SELECT id, is_correct FROM answer_options WHERE id = ? AND question_id = ?')
     .bind(optionId, questionId)
     .first<{ id: string; is_correct: number }>()
   if (!option) return c.json({ error: 'invalid_option' }, 400)
+
+  const correctOption = await c.env.DB.prepare('SELECT id FROM answer_options WHERE question_id = ? AND is_correct = 1')
+    .bind(questionId)
+    .first<{ id: string }>()
 
   const isCorrect = option.is_correct === 1
   let xpAwarded = 0
@@ -49,7 +54,55 @@ progress.post('/questions/:questionId/answer', async (c) => {
 
   await logEvent(c.env, user.userId, 'question_answered', { questionId, isCorrect })
 
-  return c.json({ correct: isCorrect, xpAwarded })
+  // Correctness + explanation are revealed only AFTER answering — the teaching moment.
+  return c.json({
+    correct: isCorrect,
+    xpAwarded,
+    correctOptionId: correctOption?.id ?? null,
+    explanation: question.explanation,
+  })
+})
+
+// XP-free exercise check for recycled practice (true/false statements and type-in answers).
+// Server-side evaluation keeps the correct answer hidden until the attempt is made.
+progress.post('/questions/:questionId/check', async (c) => {
+  const user = c.var.user!
+  const questionId = c.req.param('questionId')
+  const body = await parseJsonBody(c, checkSchema)
+  if (!body.success) return body.response
+  const { kind } = body.data
+
+  const question = await c.env.DB.prepare('SELECT id, explanation FROM questions WHERE id = ?')
+    .bind(questionId)
+    .first<{ id: string; explanation: string | null }>()
+  if (!question) return c.json({ error: 'not_found' }, 404)
+
+  const { results: options } = await c.env.DB.prepare(
+    'SELECT id, label, is_correct FROM answer_options WHERE question_id = ? ORDER BY sort_order',
+  )
+    .bind(questionId)
+    .all<{ id: string; label: string; is_correct: number }>()
+  const correctOption = options.find((o) => o.is_correct === 1)
+  if (!correctOption) return c.json({ error: 'not_found' }, 404)
+
+  let isCorrect = false
+  if (kind === 'truefalse') {
+    const { optionId, saysTrue } = body.data
+    const option = options.find((o) => o.id === optionId)
+    if (!option) return c.json({ error: 'invalid_option' }, 400)
+    isCorrect = (option.is_correct === 1) === saysTrue
+  } else {
+    isCorrect = normalizeAnswer(body.data.text!) === normalizeAnswer(correctOption.label)
+  }
+
+  await logEvent(c.env, user.userId, 'exercise_checked', { questionId, kind, isCorrect })
+
+  return c.json({
+    correct: isCorrect,
+    correctOptionId: correctOption.id,
+    correctLabel: correctOption.label,
+    explanation: question.explanation,
+  })
 })
 
 progress.post('/lessons/:lessonId/start', async (c) => {

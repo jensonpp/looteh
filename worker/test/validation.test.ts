@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   answerSchema,
+  checkSchema,
   lessonCompleteSchema,
   loginSchema,
   preferencesSchema,
@@ -46,6 +47,34 @@ describe('validation: answer', () => {
   it('rejects a missing or empty optionId', () => {
     expect(answerSchema.safeParse({}).success).toBe(false)
     expect(answerSchema.safeParse({ optionId: '' }).success).toBe(false)
+  })
+})
+
+describe('validation: exercise check', () => {
+  it('accepts a truefalse check with optionId and saysTrue', () => {
+    const result = checkSchema.safeParse({ kind: 'truefalse', optionId: 'abc-123', saysTrue: true })
+    expect(result.success).toBe(true)
+  })
+
+  it('accepts a text check with non-empty text, trimming it', () => {
+    const result = checkSchema.safeParse({ kind: 'text', text: '  emergency fund ' })
+    expect(result.success).toBe(true)
+    if (result.success) expect(result.data.text).toBe('emergency fund')
+  })
+
+  it('rejects truefalse missing optionId or saysTrue', () => {
+    expect(checkSchema.safeParse({ kind: 'truefalse', optionId: 'abc' }).success).toBe(false)
+    expect(checkSchema.safeParse({ kind: 'truefalse', saysTrue: true }).success).toBe(false)
+  })
+
+  it('rejects text kind without text', () => {
+    expect(checkSchema.safeParse({ kind: 'text' }).success).toBe(false)
+    expect(checkSchema.safeParse({ kind: 'text', text: '' }).success).toBe(false)
+  })
+
+  it('rejects unknown kinds and non-boolean saysTrue', () => {
+    expect(checkSchema.safeParse({ kind: 'matching' }).success).toBe(false)
+    expect(checkSchema.safeParse({ kind: 'truefalse', optionId: 'a', saysTrue: 'yes' }).success).toBe(false)
   })
 })
 

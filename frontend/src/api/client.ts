@@ -40,12 +40,33 @@ export type UnitSummary = {
 
 export type LessonSummary = { id: string; title: string; status: string; bestScore: number }
 
+export type LessonQuestion = {
+  id: string
+  prompt: string
+  options: { id: string; label: string }[]
+  acceptsTextAnswer: boolean
+}
+
 export type LessonDetail = {
   id: string
   unitId: string
   title: string
   conceptMarkdown: string
-  questions: { id: string; prompt: string; options: { id: string; label: string }[] }[]
+  questions: LessonQuestion[]
+}
+
+export type AnswerResult = {
+  correct: boolean
+  xpAwarded: number
+  correctOptionId: string | null
+  explanation: string | null
+}
+
+export type CheckResult = {
+  correct: boolean
+  correctOptionId: string
+  correctLabel: string
+  explanation: string | null
 }
 
 export const api = {
@@ -60,9 +81,17 @@ export const api = {
   lesson: (lessonId: string) => request<{ lesson: LessonDetail }>(`/lessons/${lessonId}`),
   startLesson: (lessonId: string) => request<{ ok: true }>(`/lessons/${lessonId}/start`, { method: 'POST' }),
   answerQuestion: (questionId: string, optionId: string) =>
-    request<{ correct: boolean; xpAwarded: number }>(`/questions/${questionId}/answer`, {
+    request<AnswerResult>(`/questions/${questionId}/answer`, {
       method: 'POST',
       body: JSON.stringify({ optionId }),
+    }),
+  checkExercise: (
+    questionId: string,
+    body: { kind: 'truefalse'; optionId: string; saysTrue: boolean } | { kind: 'text'; text: string },
+  ) =>
+    request<CheckResult>(`/questions/${questionId}/check`, {
+      method: 'POST',
+      body: JSON.stringify(body),
     }),
   completeLesson: (lessonId: string, correctCount: number, totalQuestions: number) =>
     request<{ score: number; bonusXpAwarded: number; streakCount: number }>(`/lessons/${lessonId}/complete`, {

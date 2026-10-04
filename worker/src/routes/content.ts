@@ -105,6 +105,18 @@ content.get('/lessons/:lessonId', async (c) => {
     .all<{ id: string; question_id: string; label: string; sort_order: number }>()
   // Note: `is_correct` is intentionally never selected here — client never learns correctness ahead of answering.
 
+  // Type-in exercises need a short correct answer; compute eligibility server-side from the
+  // correct label's length so the client still never learns WHICH option is correct.
+  const { results: correctLabelLengths } = await c.env.DB.prepare(
+    `SELECT question_id, LENGTH(label) AS len FROM answer_options
+     WHERE is_correct = 1 AND question_id IN (SELECT id FROM questions WHERE lesson_id = ?)`,
+  )
+    .bind(lessonId)
+    .all<{ question_id: string; len: number }>()
+  const textAnswerEligible = new Set(
+    correctLabelLengths.filter((r) => r.len <= 30).map((r) => r.question_id),
+  )
+
   const optionsByQuestion = new Map<string, { id: string; label: string }[]>()
   for (const opt of options) {
     const list = optionsByQuestion.get(opt.question_id) ?? []
@@ -122,6 +134,7 @@ content.get('/lessons/:lessonId', async (c) => {
         id: q.id,
         prompt: q.prompt,
         options: optionsByQuestion.get(q.id) ?? [],
+        acceptsTextAnswer: textAnswerEligible.has(q.id),
       })),
     },
   })

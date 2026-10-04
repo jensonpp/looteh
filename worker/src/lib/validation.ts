@@ -16,6 +16,22 @@ export const answerSchema = z.object({
   optionId: z.string().min(1),
 })
 
+export const checkSchema = z
+  .object({
+    kind: z.enum(['truefalse', 'text']),
+    optionId: z.string().min(1).optional(),
+    saysTrue: z.boolean().optional(),
+    text: z.string().trim().min(1).max(200).optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.kind === 'truefalse' && (data.optionId === undefined || data.saysTrue === undefined)) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'kind "truefalse" requires optionId and saysTrue' })
+    }
+    if (data.kind === 'text' && data.text === undefined) {
+      ctx.addIssue({ code: z.ZodIssueCode.custom, message: 'kind "text" requires text' })
+    }
+  })
+
 export const lessonCompleteSchema = z.object({
   correctCount: z.number().int().min(0).default(0),
   totalQuestions: z.number().int().min(0).default(0),

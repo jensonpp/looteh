@@ -14,7 +14,7 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 type Option = { label: string; isCorrect: boolean }
-type Question = { prompt: string; options: Option[] }
+type Question = { prompt: string; explanation?: string; options: Option[] }
 type Lesson = { title: string; conceptMarkdown: string; questions: Question[] }
 type Unit = { slug: string; title: string; unlockRequiresUnitSlug: string | null; lessons: Lesson[] }
 type SeedFile = { units: Unit[] }
@@ -85,7 +85,7 @@ function main() {
       lesson.questions.forEach((question, questionIndex) => {
         const questionId = randomUUID()
         lines.push(
-          `INSERT INTO questions (id, lesson_id, prompt, sort_order) VALUES (${sqlString(questionId)}, ${sqlString(lessonId)}, ${sqlString(question.prompt)}, ${questionIndex});`,
+          `INSERT INTO questions (id, lesson_id, prompt, explanation, sort_order) VALUES (${sqlString(questionId)}, ${sqlString(lessonId)}, ${sqlString(question.prompt)}, ${question.explanation ? sqlString(question.explanation) : 'NULL'}, ${questionIndex});`,
         )
 
         question.options.forEach((option, optionIndex) => {

@@ -12,17 +12,34 @@
             {
               "prompt": "What is the main goal of this course?",
               "options": [
-                { "label": "To teach core financial concepts and habits", "isCorrect": true },
-                { "label": "To give you specific stock picks", "isCorrect": false },
-                { "label": "To guarantee you get rich quickly", "isCorrect": false }
-              ]
+                {
+                  "label": "To teach core financial concepts and habits",
+                  "isCorrect": true
+                },
+                {
+                  "label": "To give you specific stock picks",
+                  "isCorrect": false
+                },
+                {
+                  "label": "To guarantee you get rich quickly",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "This course builds the core concepts and habits — budgeting, saving, investing — that most people never formally learn."
             },
             {
               "prompt": "True or false: understanding money matters even if you don't earn a lot.",
               "options": [
-                { "label": "True", "isCorrect": true },
-                { "label": "False", "isCorrect": false }
-              ]
+                {
+                  "label": "True",
+                  "isCorrect": true
+                },
+                {
+                  "label": "False",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Habits like budgeting and saving work at any income — and small amounts compound dramatically over time."
             }
           ]
         },
@@ -33,18 +50,38 @@
             {
               "prompt": "Which of these is the BEST example of a specific financial goal?",
               "options": [
-                { "label": "Save $1,000 for an emergency fund in 6 months", "isCorrect": true },
-                { "label": "Try to save some money this year", "isCorrect": false },
-                { "label": "Be better with money", "isCorrect": false }
-              ]
+                {
+                  "label": "Save $1,000 for an emergency fund in 6 months",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Try to save some money this year",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Be better with money",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "It names an exact amount, a purpose, and a deadline — the three traits that make a goal actionable."
             },
             {
               "prompt": "A good financial goal should be specific, measurable, and...",
               "options": [
-                { "label": "Time-bound", "isCorrect": true },
-                { "label": "Secret", "isCorrect": false },
-                { "label": "Unlimited", "isCorrect": false }
-              ]
+                {
+                  "label": "Time-bound",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Secret",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Unlimited",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A deadline creates urgency and lets you check progress — \"someday\" goals rarely get started."
             }
           ]
         }
@@ -62,18 +99,38 @@
             {
               "prompt": "You earn $3,000 a month and spend $3,200. You have a...",
               "options": [
-                { "label": "Deficit of $200", "isCorrect": true },
-                { "label": "Surplus of $200", "isCorrect": false },
-                { "label": "Balanced budget", "isCorrect": false }
-              ]
+                {
+                  "label": "Deficit of $200",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Surplus of $200",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Balanced budget",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Spending more than you earn is a deficit — it must be covered by debt or savings, and it compounds against you."
             },
             {
               "prompt": "What is a budget, most simply?",
               "options": [
-                { "label": "A plan for your income and expenses made in advance", "isCorrect": true },
-                { "label": "A punishment for overspending", "isCorrect": false },
-                { "label": "A bank account with restrictions", "isCorrect": false }
-              ]
+                {
+                  "label": "A plan for your income and expenses made in advance",
+                  "isCorrect": true
+                },
+                {
+                  "label": "A punishment for overspending",
+                  "isCorrect": false
+                },
+                {
+                  "label": "A bank account with restrictions",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A budget is a plan made before the month starts, so money goes where you decide — not wherever it drifts."
             }
           ]
         },
@@ -84,18 +141,38 @@
             {
               "prompt": "In the 50/30/20 rule, what does the 20% represent?",
               "options": [
-                { "label": "Savings and extra debt payoff", "isCorrect": true },
-                { "label": "Rent and utilities", "isCorrect": false },
-                { "label": "Dining out and entertainment", "isCorrect": false }
-              ]
+                {
+                  "label": "Savings and extra debt payoff",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Rent and utilities",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Dining out and entertainment",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The 20% is what builds your future: savings, investing, and paying down debt faster than minimums."
             },
             {
               "prompt": "Why save money on payday instead of at the end of the month?",
               "options": [
-                { "label": "Money moved first tends to stay saved; leftovers tend to get spent", "isCorrect": true },
-                { "label": "Banks only accept deposits on payday", "isCorrect": false },
-                { "label": "It earns double interest that way", "isCorrect": false }
-              ]
+                {
+                  "label": "Money moved first tends to stay saved; leftovers tend to get spent",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Banks only accept deposits on payday",
+                  "isCorrect": false
+                },
+                {
+                  "label": "It earns double interest that way",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Pay-yourself-first works because money you never see never gets spent — leftover money reliably disappears."
             }
           ]
         }
@@ -113,18 +190,38 @@
             {
               "prompt": "Which of these is clearly a NEED?",
               "options": [
-                { "label": "Groceries for the week", "isCorrect": true },
-                { "label": "Concert tickets", "isCorrect": false },
-                { "label": "A premium streaming bundle", "isCorrect": false }
-              ]
+                {
+                  "label": "Groceries for the week",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Concert tickets",
+                  "isCorrect": false
+                },
+                {
+                  "label": "A premium streaming bundle",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Groceries sustain you — the other options are preferences, not survival."
             },
             {
               "prompt": "The needs-vs-wants test is best described as...",
               "options": [
-                { "label": "Situational — it depends on your circumstances", "isCorrect": true },
-                { "label": "Fixed — the same items for everyone, always", "isCorrect": false },
-                { "label": "Moral — wants should be eliminated", "isCorrect": false }
-              ]
+                {
+                  "label": "Situational — it depends on your circumstances",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Fixed — the same items for everyone, always",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Moral — wants should be eliminated",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The same expense can be a need for one person and a want for another — the test is whether YOUR circumstances require it."
             }
           ]
         },
@@ -135,18 +232,38 @@
             {
               "prompt": "A $12/month subscription costs how much per year?",
               "options": [
-                { "label": "$144", "isCorrect": true },
-                { "label": "$120", "isCorrect": false },
-                { "label": "$1,200", "isCorrect": false }
-              ]
+                {
+                  "label": "$144",
+                  "isCorrect": true
+                },
+                {
+                  "label": "$120",
+                  "isCorrect": false
+                },
+                {
+                  "label": "$1,200",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Small recurring charges feel trivial monthly but cost 12× per year — $12 × 12 = $144."
             },
             {
               "prompt": "What's the best question to ask about a recurring charge?",
               "options": [
-                { "label": "\"Would I sign up for this again today at 12× the price?\"", "isCorrect": true },
-                { "label": "\"Did I use it at least once?\"", "isCorrect": false },
-                { "label": "\"Is it cheaper than my other subscriptions?\"", "isCorrect": false }
-              ]
+                {
+                  "label": "\"Would I sign up for this again today at 12× the price?\"",
+                  "isCorrect": true
+                },
+                {
+                  "label": "\"Did I use it at least once?\"",
+                  "isCorrect": false
+                },
+                {
+                  "label": "\"Is it cheaper than my other subscriptions?\"",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Reframing to the annual cost breaks the \"it's only $12\" illusion that keeps dead subscriptions alive."
             }
           ]
         }
@@ -164,18 +281,38 @@
             {
               "prompt": "The main purpose of an emergency fund is to...",
               "options": [
-                { "label": "Cover genuine surprises without going into debt", "isCorrect": true },
-                { "label": "Fund vacations at short notice", "isCorrect": false },
-                { "label": "Invest in the stock market safely", "isCorrect": false }
-              ]
+                {
+                  "label": "Cover genuine surprises without going into debt",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Fund vacations at short notice",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Invest in the stock market safely",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The fund's whole job is to absorb shocks — job loss, repairs, medical bills — without forcing you into debt."
             },
             {
               "prompt": "Which of these is a proper emergency-fund use?",
               "options": [
-                { "label": "An unexpected car repair", "isCorrect": true },
-                { "label": "A limited-time sale on flights", "isCorrect": false },
-                { "label": "Upgrading to the new iPhone", "isCorrect": false }
-              ]
+                {
+                  "label": "An unexpected car repair",
+                  "isCorrect": true
+                },
+                {
+                  "label": "A limited-time sale on flights",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Upgrading to the new iPhone",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A surprise repair is exactly the kind of genuine emergency the fund exists for; planned expenses aren't."
             }
           ]
         },
@@ -186,18 +323,38 @@
             {
               "prompt": "A full emergency fund typically covers how many months of ESSENTIAL expenses?",
               "options": [
-                { "label": "3–6 months", "isCorrect": true },
-                { "label": "1–2 weeks", "isCorrect": false },
-                { "label": "10–12 months", "isCorrect": false }
-              ]
+                {
+                  "label": "3–6 months",
+                  "isCorrect": true
+                },
+                {
+                  "label": "1–2 weeks",
+                  "isCorrect": false
+                },
+                {
+                  "label": "10–12 months",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Three to six months of essentials buys time to find work or absorb a shock without panic."
             },
             {
               "prompt": "Where should an emergency fund live?",
               "options": [
-                { "label": "A high-yield savings account, separate from spending money", "isCorrect": true },
-                { "label": "Stock index funds, for growth", "isCorrect": false },
-                { "label": "Your checking account, mixed with daily spending", "isCorrect": false }
-              ]
+                {
+                  "label": "A high-yield savings account, separate from spending money",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Stock index funds, for growth",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Your checking account, mixed with daily spending",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Separate and high-yield means it grows a little, stays instantly accessible, and isn't tempting for everyday spending."
             }
           ]
         }
@@ -215,18 +372,38 @@
             {
               "prompt": "Which is the BEST example of potentially good debt?",
               "options": [
-                { "label": "A student loan for a degree with strong job prospects", "isCorrect": true },
-                { "label": "A credit card balance from a vacation", "isCorrect": false },
-                { "label": "A payday loan to cover this month's bills", "isCorrect": false }
-              ]
+                {
+                  "label": "A student loan for a degree with strong job prospects",
+                  "isCorrect": true
+                },
+                {
+                  "label": "A credit card balance from a vacation",
+                  "isCorrect": false
+                },
+                {
+                  "label": "A payday loan to cover this month's bills",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Good debt buys something that grows in value or income — a degree with strong job prospects can pay for itself many times over."
             },
             {
               "prompt": "The key question for judging debt is...",
               "options": [
-                { "label": "What does the borrowed money actually buy?", "isCorrect": true },
-                { "label": "Is the lender a big bank?", "isCorrect": false },
-                { "label": "Did a friend also take this loan?", "isCorrect": false }
-              ]
+                {
+                  "label": "What does the borrowed money actually buy?",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Is the lender a big bank?",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Did a friend also take this loan?",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The purpose determines whether the debt builds your future (education, assets) or drains it (consumption)."
             }
           ]
         },
@@ -237,18 +414,38 @@
             {
               "prompt": "Roughly how much interest per year does a $1,000 balance at 24% APR cost?",
               "options": [
-                { "label": "About $240", "isCorrect": true },
-                { "label": "About $24", "isCorrect": false },
-                { "label": "About $2,400", "isCorrect": false }
-              ]
+                {
+                  "label": "About $240",
+                  "isCorrect": true
+                },
+                {
+                  "label": "About $24",
+                  "isCorrect": false
+                },
+                {
+                  "label": "About $2,400",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "24% of $1,000 is $240 per year — high APRs make balances grow shockingly fast, which is why they're priority one to kill."
             },
             {
               "prompt": "Why are payday loans considered dangerous?",
               "options": [
-                { "label": "Their effective APRs can exceed 300%", "isCorrect": true },
-                { "label": "They require collateral like your house", "isCorrect": false },
-                { "label": "They are always for larger amounts than credit cards", "isCorrect": false }
-              ]
+                {
+                  "label": "Their effective APRs can exceed 300%",
+                  "isCorrect": true
+                },
+                {
+                  "label": "They require collateral like your house",
+                  "isCorrect": false
+                },
+                {
+                  "label": "They are always for larger amounts than credit cards",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Triple-digit effective APRs make balances double or worse within months — they turn a shortfall into a debt spiral."
             }
           ]
         }
@@ -266,18 +463,38 @@
             {
               "prompt": "Which factor has the BIGGEST impact on a typical credit score?",
               "options": [
-                { "label": "Payment history", "isCorrect": true },
-                { "label": "Credit mix", "isCorrect": false },
-                { "label": "Number of bank accounts", "isCorrect": false }
-              ]
+                {
+                  "label": "Payment history",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Credit mix",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Number of bank accounts",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "On-time payments are roughly 35% of a typical score — nothing else comes close, and one missed payment does real damage."
             },
             {
               "prompt": "As a rule of thumb, keep credit card utilization below...",
               "options": [
-                { "label": "30% of your limit", "isCorrect": true },
-                { "label": "90% of your limit", "isCorrect": false },
-                { "label": "It doesn't matter", "isCorrect": false }
-              ]
+                {
+                  "label": "30% of your limit",
+                  "isCorrect": true
+                },
+                {
+                  "label": "90% of your limit",
+                  "isCorrect": false
+                },
+                {
+                  "label": "It doesn't matter",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Keeping utilization under ~30% (lower is better) shows lenders you use credit without leaning on it."
             }
           ]
         },
@@ -288,18 +505,38 @@
             {
               "prompt": "On a large mortgage, a better credit score can save you...",
               "options": [
-                { "label": "Tens of thousands of dollars in interest", "isCorrect": true },
-                { "label": "Nothing — rates are fixed for everyone", "isCorrect": false },
-                { "label": "A few dollars a year", "isCorrect": false }
-              ]
+                {
+                  "label": "Tens of thousands of dollars in interest",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Nothing — rates are fixed for everyone",
+                  "isCorrect": false
+                },
+                {
+                  "label": "A few dollars a year",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A better score means a lower rate; over 30 years on a large mortgage, fractions of a percent add up to five figures."
             },
             {
               "prompt": "What's the cheapest way to protect your credit score?",
               "options": [
-                { "label": "Automate at least minimum payments on every account", "isCorrect": true },
-                { "label": "Close all your credit cards", "isCorrect": false },
-                { "label": "Apply for new credit often to show activity", "isCorrect": false }
-              ]
+                {
+                  "label": "Automate at least minimum payments on every account",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Close all your credit cards",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Apply for new credit often to show activity",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Automation makes the single biggest scoring factor — on-time payments — happen by default, for free."
             }
           ]
         }
@@ -317,18 +554,38 @@
             {
               "prompt": "Which debt-payoff method targets the highest APR balance first?",
               "options": [
-                { "label": "Avalanche", "isCorrect": true },
-                { "label": "Snowball", "isCorrect": false },
-                { "label": "Debt consolidation", "isCorrect": false }
-              ]
+                {
+                  "label": "Avalanche",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Snowball",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Debt consolidation",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Avalanche targets the highest interest rate first, which mathematically minimizes total interest paid."
             },
             {
               "prompt": "The most important factor in choosing a payoff method is...",
               "options": [
-                { "label": "Whether you'll stick with it until the debts are gone", "isCorrect": true },
-                { "label": "Which one sounds more impressive", "isCorrect": false },
-                { "label": "Which one your bank prefers", "isCorrect": false }
-              ]
+                {
+                  "label": "Whether you'll stick with it until the debts are gone",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Which one sounds more impressive",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Which one your bank prefers",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The best method on paper loses to the one you actually finish — consistency beats optimization."
             }
           ]
         },
@@ -339,18 +596,38 @@
             {
               "prompt": "A 0% balance-transfer card becomes a trap when...",
               "options": [
-                { "label": "The intro rate expires and the APR jumps", "isCorrect": true },
-                { "label": "It's used to pay off a payday loan", "isCorrect": false },
-                { "label": "The credit limit is too high", "isCorrect": false }
-              ]
+                {
+                  "label": "The intro rate expires and the APR jumps",
+                  "isCorrect": true
+                },
+                {
+                  "label": "It's used to pay off a payday loan",
+                  "isCorrect": false
+                },
+                {
+                  "label": "The credit limit is too high",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "After the intro period the rate often jumps above 20%, so the transferred balance must be gone before it ends."
             },
             {
               "prompt": "After paying off a credit card, you should generally...",
               "options": [
-                { "label": "Keep it open to preserve your credit history", "isCorrect": true },
-                { "label": "Close it immediately", "isCorrect": false },
-                { "label": "Close your oldest card first", "isCorrect": false }
-              ]
+                {
+                  "label": "Keep it open to preserve your credit history",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Close it immediately",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Close your oldest card first",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Closing the card shrinks your total credit and average account age — both hurt your score; just don't carry a balance."
             }
           ]
         }
@@ -368,18 +645,38 @@
             {
               "prompt": "Which account is designed for daily spending and bills?",
               "options": [
-                { "label": "Checking", "isCorrect": true },
-                { "label": "A high-yield savings account", "isCorrect": false },
-                { "label": "A certificate of deposit", "isCorrect": false }
-              ]
+                {
+                  "label": "Checking",
+                  "isCorrect": true
+                },
+                {
+                  "label": "A high-yield savings account",
+                  "isCorrect": false
+                },
+                {
+                  "label": "A certificate of deposit",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Checking is built for transactions — bill pay, debit card, frequent in-and-out — with no withdrawal limits."
             },
             {
               "prompt": "Why keep savings in an HYSA instead of a big-bank savings account?",
               "options": [
-                { "label": "HYSAs pay ~4% vs. ~0.01% — hundreds of times more interest", "isCorrect": true },
-                { "label": "Big banks aren't FDIC insured", "isCorrect": false },
-                { "label": "HYSAs have unlimited withdrawals", "isCorrect": false }
-              ]
+                {
+                  "label": "HYSAs pay ~4% vs. ~0.01% — hundreds of times more interest",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Big banks aren't FDIC insured",
+                  "isCorrect": false
+                },
+                {
+                  "label": "HYSAs have unlimited withdrawals",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "At ~4% vs ~0.01%, the same $10,000 earns about $400/year instead of $1 — same FDIC safety, very different outcome."
             }
           ]
         },
@@ -390,18 +687,38 @@
             {
               "prompt": "The most reliably avoidable bank fee is...",
               "options": [
-                { "label": "The monthly maintenance fee — switch banks or meet the waiver", "isCorrect": true },
-                { "label": "FDIC insurance premiums", "isCorrect": false },
-                { "label": "Interest earned on savings", "isCorrect": false }
-              ]
+                {
+                  "label": "The monthly maintenance fee — switch banks or meet the waiver",
+                  "isCorrect": true
+                },
+                {
+                  "label": "FDIC insurance premiums",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Interest earned on savings",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Maintenance fees are pure waste — thousands of banks and credit unions waive them or don't charge at all."
             },
             {
               "prompt": "If you opt out of overdraft \"protection,\" a purchase you can't afford will...",
               "options": [
-                { "label": "Be declined — usually the better outcome", "isCorrect": true },
-                { "label": "Trigger a $35 fee anyway", "isCorrect": false },
-                { "label": "Be paid by the government", "isCorrect": false }
-              ]
+                {
+                  "label": "Be declined — usually the better outcome",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Trigger a $35 fee anyway",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Be paid by the government",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A declined card is embarrassing for a second; an overdraft fee plus a negative balance is a hole that can snowball."
             }
           ]
         }
@@ -419,18 +736,38 @@
             {
               "prompt": "Using the Rule of 72, money invested at 8% doubles roughly every...",
               "options": [
-                { "label": "9 years", "isCorrect": true },
-                { "label": "72 years", "isCorrect": false },
-                { "label": "3 years", "isCorrect": false }
-              ]
+                {
+                  "label": "9 years",
+                  "isCorrect": true
+                },
+                {
+                  "label": "72 years",
+                  "isCorrect": false
+                },
+                {
+                  "label": "3 years",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The Rule of 72: divide 72 by the return rate — 72 ÷ 8 = 9 years per doubling."
             },
             {
               "prompt": "Compound interest works AGAINST you when you...",
               "options": [
-                { "label": "Carry a high-interest balance", "isCorrect": true },
-                { "label": "Save in an HYSA", "isCorrect": false },
-                { "label": "Hold index funds for decades", "isCorrect": false }
-              ]
+                {
+                  "label": "Carry a high-interest balance",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Save in an HYSA",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Hold index funds for decades",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The same compounding that grows investments grows debt balances — at 24% APR, fast."
             }
           ]
         },
@@ -441,18 +778,38 @@
             {
               "prompt": "Two people save $200/month at 7% until 65 — one from age 25, one from 35. Who ends with more?",
               "options": [
-                { "label": "The one who started at 25 — by more than double", "isCorrect": true },
-                { "label": "The one who started at 35 — bigger contributions", "isCorrect": false },
-                { "label": "Roughly the same", "isCorrect": false }
-              ]
+                {
+                  "label": "The one who started at 25 — by more than double",
+                  "isCorrect": true
+                },
+                {
+                  "label": "The one who started at 35 — bigger contributions",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Roughly the same",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The extra decade means one more doubling cycle — the early saver ends with more than double."
             },
             {
               "prompt": "The most powerful input to compound growth is...",
               "options": [
-                { "label": "Time in the market", "isCorrect": true },
-                { "label": "Picking hot stocks", "isCorrect": false },
-                { "label": "Checking prices daily", "isCorrect": false }
-              ]
+                {
+                  "label": "Time in the market",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Picking hot stocks",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Checking prices daily",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Rate matters, but time dominates — years invested is the exponent in the compound growth formula."
             }
           ]
         }
@@ -470,18 +827,38 @@
             {
               "prompt": "Real return is calculated as...",
               "options": [
-                { "label": "Nominal return minus inflation", "isCorrect": true },
-                { "label": "Nominal return plus inflation", "isCorrect": false },
-                { "label": "Nominal return times two", "isCorrect": false }
-              ]
+                {
+                  "label": "Nominal return minus inflation",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Nominal return plus inflation",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Nominal return times two",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Real return strips out rising prices to show what your money actually gained in purchasing power."
             },
             {
               "prompt": "Your savings pay 1% while inflation runs 3%. Your real return is...",
               "options": [
-                { "label": "−2% — you're slowly losing purchasing power", "isCorrect": true },
-                { "label": "+4%", "isCorrect": false },
-                { "label": "+1% — you break even", "isCorrect": false }
-              ]
+                {
+                  "label": "−2% — you're slowly losing purchasing power",
+                  "isCorrect": true
+                },
+                {
+                  "label": "+4%",
+                  "isCorrect": false
+                },
+                {
+                  "label": "+1% — you break even",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "1% − 3% = −2%: your dollar number grows but buys less each year — cash loses ground to inflation."
             }
           ]
         },
@@ -492,18 +869,38 @@
             {
               "prompt": "Over the long run, which has most reliably beaten inflation?",
               "options": [
-                { "label": "Stocks", "isCorrect": true },
-                { "label": "Checking accounts", "isCorrect": false },
-                { "label": "Cash under the mattress", "isCorrect": false }
-              ]
+                {
+                  "label": "Stocks",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Checking accounts",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Cash under the mattress",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Over long periods, equities have historically outpaced inflation; cash and bonds often haven't."
             },
             {
               "prompt": "Why doesn't the emergency fund need to beat inflation?",
               "options": [
-                { "label": "Its job is instant access and safety, not growth", "isCorrect": true },
-                { "label": "Inflation ignores small balances", "isCorrect": false },
-                { "label": "FDIC insurance covers inflation", "isCorrect": false }
-              ]
+                {
+                  "label": "Its job is instant access and safety, not growth",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Inflation ignores small balances",
+                  "isCorrect": false
+                },
+                {
+                  "label": "FDIC insurance covers inflation",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The fund trades growth for certainty — investing it risks it being down exactly when you need it most."
             }
           ]
         }
@@ -521,18 +918,38 @@
             {
               "prompt": "Owning one share of stock means you...",
               "options": [
-                { "label": "Own a small piece of that company", "isCorrect": true },
-                { "label": "Lent the company money", "isCorrect": false },
-                { "label": "Are guaranteed a payout", "isCorrect": false }
-              ]
+                {
+                  "label": "Own a small piece of that company",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Lent the company money",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Are guaranteed a payout",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A share is literal ownership — you profit if the company grows and share in its value."
             },
             {
               "prompt": "Compared to a single stock, a fund is...",
               "options": [
-                { "label": "Less risky because it spreads money across many holdings", "isCorrect": true },
-                { "label": "More risky because it holds more things", "isCorrect": false },
-                { "label": "Guaranteed by the government", "isCorrect": false }
-              ]
+                {
+                  "label": "Less risky because it spreads money across many holdings",
+                  "isCorrect": true
+                },
+                {
+                  "label": "More risky because it holds more things",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Guaranteed by the government",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "One basket holding hundreds of companies can't be wiped out by a single failure — that's diversification."
             }
           ]
         },
@@ -543,18 +960,38 @@
             {
               "prompt": "Money you need for a down payment next year should be...",
               "options": [
-                { "label": "In safe, liquid accounts — not stocks", "isCorrect": true },
-                { "label": "In individual tech stocks", "isCorrect": false },
-                { "label": "In crypto for the upside", "isCorrect": false }
-              ]
+                {
+                  "label": "In safe, liquid accounts — not stocks",
+                  "isCorrect": true
+                },
+                {
+                  "label": "In individual tech stocks",
+                  "isCorrect": false
+                },
+                {
+                  "label": "In crypto for the upside",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Stocks can drop 30% in a bad year; money you need next year can't wait out a downturn."
             },
             {
               "prompt": "\"Higher expected return\" in investing always comes with...",
               "options": [
-                { "label": "Higher risk of loss", "isCorrect": true },
-                { "label": "A government guarantee", "isCorrect": false },
-                { "label": "FDIC insurance", "isCorrect": false }
-              ]
+                {
+                  "label": "Higher risk of loss",
+                  "isCorrect": true
+                },
+                {
+                  "label": "A government guarantee",
+                  "isCorrect": false
+                },
+                {
+                  "label": "FDIC insurance",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Return is compensation for risk — anything promising high returns safely is lying or hiding the risk."
             }
           ]
         }
@@ -572,18 +1009,38 @@
             {
               "prompt": "An S&P 500 index fund holds...",
               "options": [
-                { "label": "All (or most) of the 500 largest US companies", "isCorrect": true },
-                { "label": "The 5 hottest stocks", "isCorrect": false },
-                { "label": "Only companies that beat the market", "isCorrect": false }
-              ]
+                {
+                  "label": "All (or most) of the 500 largest US companies",
+                  "isCorrect": true
+                },
+                {
+                  "label": "The 5 hottest stocks",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Only companies that beat the market",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "An index fund simply mirrors the index — no picking, just owning the market as-is."
             },
             {
               "prompt": "Why do fund fees matter so much?",
               "options": [
-                { "label": "They compound against you every single year", "isCorrect": true },
-                { "label": "They're only charged on losses", "isCorrect": false },
-                { "label": "They're refunded at retirement", "isCorrect": false }
-              ]
+                {
+                  "label": "They compound against you every single year",
+                  "isCorrect": true
+                },
+                {
+                  "label": "They're only charged on losses",
+                  "isCorrect": false
+                },
+                {
+                  "label": "They're refunded at retirement",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Fees come out every year regardless of performance, so 1% extra compounds into a huge drag over decades."
             }
           ]
         },
@@ -594,18 +1051,38 @@
             {
               "prompt": "\"Time in the market beats timing the market\" means...",
               "options": [
-                { "label": "Staying invested long-term beats trying to buy and sell at perfect moments", "isCorrect": true },
-                { "label": "Day trading is the fastest path to wealth", "isCorrect": false },
-                { "label": "Wait for a crash before investing", "isCorrect": false }
-              ]
+                {
+                  "label": "Staying invested long-term beats trying to buy and sell at perfect moments",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Day trading is the fastest path to wealth",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Wait for a crash before investing",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The market's best days cluster near its worst — being out at the right time requires being right twice, constantly."
             },
             {
               "prompt": "The key danger of holding a single company's stock is...",
               "options": [
-                { "label": "One company can fail while the whole market recovers", "isCorrect": true },
-                { "label": "Stocks never recover after drops", "isCorrect": false },
-                { "label": "Dividends are illegal", "isCorrect": false }
-              ]
+                {
+                  "label": "One company can fail while the whole market recovers",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Stocks never recover after drops",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Dividends are illegal",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Enron and Lehman went to zero while the market recovered — diversification is the shield."
             }
           ]
         }
@@ -623,18 +1100,38 @@
             {
               "prompt": "The key benefit of investing inside a retirement account is...",
               "options": [
-                { "label": "Decades of compounding without yearly tax drag", "isCorrect": true },
-                { "label": "Guaranteed investment returns", "isCorrect": false },
-                { "label": "Higher interest rates from banks", "isCorrect": false }
-              ]
+                {
+                  "label": "Decades of compounding without yearly tax drag",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Guaranteed investment returns",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Higher interest rates from banks",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Outside these accounts, yearly taxes eat returns; inside, every dollar of gain stays invested and compounds."
             },
             {
               "prompt": "With a Roth-style account, taxes are paid...",
               "options": [
-                { "label": "Now — and qualified withdrawals come out tax-free", "isCorrect": true },
-                { "label": "Never at all", "isCorrect": false },
-                { "label": "Only after age 65", "isCorrect": false }
-              ]
+                {
+                  "label": "Now — and qualified withdrawals come out tax-free",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Never at all",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Only after age 65",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Roth trades a small tax bill today for decades of untaxed growth and tax-free withdrawals."
             }
           ]
         },
@@ -645,18 +1142,38 @@
             {
               "prompt": "A 50% match on contributions is effectively...",
               "options": [
-                { "label": "An instant 50% return on matched money", "isCorrect": true },
-                { "label": "A loan you must repay", "isCorrect": false },
-                { "label": "A tax on your salary", "isCorrect": false }
-              ]
+                {
+                  "label": "An instant 50% return on matched money",
+                  "isCorrect": true
+                },
+                {
+                  "label": "A loan you must repay",
+                  "isCorrect": false
+                },
+                {
+                  "label": "A tax on your salary",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Every matched dollar is free money added on top — a guaranteed 50% gain before any investing."
             },
             {
               "prompt": "Why capture the full match before other investing?",
               "options": [
-                { "label": "No other investment reliably returns 50% instantly", "isCorrect": true },
-                { "label": "Matches are FDIC insured", "isCorrect": false },
-                { "label": "It eliminates your tax bill", "isCorrect": false }
-              ]
+                {
+                  "label": "No other investment reliably returns 50% instantly",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Matches are FDIC insured",
+                  "isCorrect": false
+                },
+                {
+                  "label": "It eliminates your tax bill",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Markets average ~7–10%; a match pays 50% instantly with zero risk — the best deal in personal finance."
             }
           ]
         }
@@ -674,18 +1191,38 @@
             {
               "prompt": "You move into a higher tax bracket. What happens?",
               "options": [
-                { "label": "Only the income above the threshold is taxed at the higher rate", "isCorrect": true },
-                { "label": "All your income is taxed at the higher rate", "isCorrect": false },
-                { "label": "You owe back taxes on prior years", "isCorrect": false }
-              ]
+                {
+                  "label": "Only the income above the threshold is taxed at the higher rate",
+                  "isCorrect": true
+                },
+                {
+                  "label": "All your income is taxed at the higher rate",
+                  "isCorrect": false
+                },
+                {
+                  "label": "You owe back taxes on prior years",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Brackets are marginal — each slice of income is taxed at its own rate, so a raise never reduces your take-home."
             },
             {
               "prompt": "Your effective tax rate is...",
               "options": [
-                { "label": "Total tax ÷ total income", "isCorrect": true },
-                { "label": "The rate of your top bracket", "isCorrect": false },
-                { "label": "The same for everyone", "isCorrect": false }
-              ]
+                {
+                  "label": "Total tax ÷ total income",
+                  "isCorrect": true
+                },
+                {
+                  "label": "The rate of your top bracket",
+                  "isCorrect": false
+                },
+                {
+                  "label": "The same for everyone",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Effective rate blends all your brackets; it's the honest number for what you actually pay."
             }
           ]
         },
@@ -696,18 +1233,38 @@
             {
               "prompt": "Which reduces your tax bill dollar-for-dollar?",
               "options": [
-                { "label": "A tax credit", "isCorrect": true },
-                { "label": "A tax deduction", "isCorrect": false },
-                { "label": "A higher tax bracket", "isCorrect": false }
-              ]
+                {
+                  "label": "A tax credit",
+                  "isCorrect": true
+                },
+                {
+                  "label": "A tax deduction",
+                  "isCorrect": false
+                },
+                {
+                  "label": "A higher tax bracket",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A credit cuts the bill itself ($1,000 credit = $1,000 less); a deduction only removes taxable income."
             },
             {
               "prompt": "A big tax refund every year usually means...",
               "options": [
-                { "label": "You over-withheld — an interest-free loan to the government", "isCorrect": true },
-                { "label": "You're maximizing wealth", "isCorrect": false },
-                { "label": "An audit is coming", "isCorrect": false }
-              ]
+                {
+                  "label": "You over-withheld — an interest-free loan to the government",
+                  "isCorrect": true
+                },
+                {
+                  "label": "You're maximizing wealth",
+                  "isCorrect": false
+                },
+                {
+                  "label": "An audit is coming",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A refund is your own money returned without interest — better to have it each month, invested or against debt."
             }
           ]
         }
@@ -725,18 +1282,38 @@
             {
               "prompt": "The core purpose of insurance is to...",
               "options": [
-                { "label": "Transfer the cost of rare, unaffordable disasters", "isCorrect": true },
-                { "label": "Make a profit on premiums", "isCorrect": false },
-                { "label": "Cover small predictable expenses", "isCorrect": false }
-              ]
+                {
+                  "label": "Transfer the cost of rare, unaffordable disasters",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Make a profit on premiums",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Cover small predictable expenses",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "You pay a known small cost to cap an unknown catastrophic one — that's the entire trade."
             },
             {
               "prompt": "A deductible is...",
               "options": [
-                { "label": "What you pay out of pocket before coverage starts", "isCorrect": true },
-                { "label": "The insurer's profit margin", "isCorrect": false },
-                { "label": "A monthly subscription fee", "isCorrect": false }
-              ]
+                {
+                  "label": "What you pay out of pocket before coverage starts",
+                  "isCorrect": true
+                },
+                {
+                  "label": "The insurer's profit margin",
+                  "isCorrect": false
+                },
+                {
+                  "label": "A monthly subscription fee",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The deductible is your share before coverage kicks in; higher deductibles mean lower premiums."
             }
           ]
         },
@@ -747,18 +1324,38 @@
             {
               "prompt": "Who most needs term life insurance?",
               "options": [
-                { "label": "People whose dependents rely on their income", "isCorrect": true },
-                { "label": "Single people with no dependents", "isCorrect": false },
-                { "label": "Only retirees", "isCorrect": false }
-              ]
+                {
+                  "label": "People whose dependents rely on their income",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Single people with no dependents",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Only retirees",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Term life replaces your income for people who depend on it — no dependents, no need."
             },
             {
               "prompt": "Which is usually NOT worth the price?",
               "options": [
-                { "label": "Extended warranties on gadgets", "isCorrect": true },
-                { "label": "Renters insurance", "isCorrect": false },
-                { "label": "Auto liability coverage", "isCorrect": false }
-              ]
+                {
+                  "label": "Extended warranties on gadgets",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Renters insurance",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Auto liability coverage",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Gadget warranties cost more than expected repairs and duplicate coverage you may already have — pure margin for the seller."
             }
           ]
         }
@@ -776,18 +1373,38 @@
             {
               "prompt": "A new car typically loses about what share of its value in the first year?",
               "options": [
-                { "label": "~20%", "isCorrect": true },
-                { "label": "~2%", "isCorrect": false },
-                { "label": "~75%", "isCorrect": false }
-              ]
+                {
+                  "label": "~20%",
+                  "isCorrect": true
+                },
+                {
+                  "label": "~2%",
+                  "isCorrect": false
+                },
+                {
+                  "label": "~75%",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Depreciation is steepest in year one — buying 2–3 years used lets someone else absorb it."
             },
             {
               "prompt": "The 20/4/10 guideline suggests...",
               "options": [
-                { "label": "20% down, ≤4-year loan, car costs ≤10% of take-home pay", "isCorrect": true },
-                { "label": "$20k price, 4 doors, 10 mpg", "isCorrect": false },
-                { "label": "20 cars, 4 years, 10 owners", "isCorrect": false }
-              ]
+                {
+                  "label": "20% down, ≤4-year loan, car costs ≤10% of take-home pay",
+                  "isCorrect": true
+                },
+                {
+                  "label": "$20k price, 4 doors, 10 mpg",
+                  "isCorrect": false
+                },
+                {
+                  "label": "20 cars, 4 years, 10 owners",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The rule keeps the down payment real, the loan short, and the total cost within ~10% of take-home so it can't crowd out savings."
             }
           ]
         },
@@ -798,18 +1415,38 @@
             {
               "prompt": "Renting is often the right call when...",
               "options": [
-                { "label": "You might move within about five years", "isCorrect": true },
-                { "label": "You want maximum leverage", "isCorrect": false },
-                { "label": "Rents are rising fast", "isCorrect": false }
-              ]
+                {
+                  "label": "You might move within about five years",
+                  "isCorrect": true
+                },
+                {
+                  "label": "You want maximum leverage",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Rents are rising fast",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Transaction costs of buying and selling take years to recoup; staying 5+ years is when buying tends to win."
             },
             {
               "prompt": "Beyond the mortgage, yearly maintenance alone typically costs about what % of a home's value?",
               "options": [
-                { "label": "~1–2%", "isCorrect": true },
-                { "label": "~25%", "isCorrect": false },
-                { "label": "~0% — the mortgage covers it", "isCorrect": false }
-              ]
+                {
+                  "label": "~1–2%",
+                  "isCorrect": true
+                },
+                {
+                  "label": "~25%",
+                  "isCorrect": false
+                },
+                {
+                  "label": "~0% — the mortgage covers it",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A $400k home needs roughly $4–8k/year of maintenance alone — on top of taxes and insurance."
             }
           ]
         }
@@ -827,18 +1464,38 @@
             {
               "prompt": "Why is salary negotiation such a high-ROI move?",
               "options": [
-                { "label": "One conversation raises the base for every future raise", "isCorrect": true },
-                { "label": "It's guaranteed to succeed", "isCorrect": false },
-                { "label": "It reduces your tax rate", "isCorrect": false }
-              ]
+                {
+                  "label": "One conversation raises the base for every future raise",
+                  "isCorrect": true
+                },
+                {
+                  "label": "It's guaranteed to succeed",
+                  "isCorrect": false
+                },
+                {
+                  "label": "It reduces your tax rate",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Raises, bonuses, and future offers all key off your current salary — one conversation compounds for a career."
             },
             {
               "prompt": "Side income usually triggers...",
               "options": [
-                { "label": "Self-employment tax — set aside ~25–30% of profit", "isCorrect": true },
-                { "label": "No tax obligations", "isCorrect": false },
-                { "label": "An automatic refund", "isCorrect": false }
-              ]
+                {
+                  "label": "Self-employment tax — set aside ~25–30% of profit",
+                  "isCorrect": true
+                },
+                {
+                  "label": "No tax obligations",
+                  "isCorrect": false
+                },
+                {
+                  "label": "An automatic refund",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Side income gets no withholding, and self-employment tax adds ~15% on top of income tax — set it aside or get surprised."
             }
           ]
         },
@@ -849,18 +1506,38 @@
             {
               "prompt": "The most important prep before negotiating is...",
               "options": [
-                { "label": "Researching market rates for your role", "isCorrect": true },
-                { "label": "Rehearsing an angry tone", "isCorrect": false },
-                { "label": "Threatening to quit", "isCorrect": false }
-              ]
+                {
+                  "label": "Researching market rates for your role",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Rehearsing an angry tone",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Threatening to quit",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "You can't ask credibly without knowing the range — data is your leverage, not adjectives."
             },
             {
               "prompt": "If base salary is truly fixed, you should...",
               "options": [
-                { "label": "Negotiate the rest — bonus, equity, PTO, remote flexibility", "isCorrect": true },
-                { "label": "Walk out immediately", "isCorrect": false },
-                { "label": "Accept silently and stay bitter", "isCorrect": false }
-              ]
+                {
+                  "label": "Negotiate the rest — bonus, equity, PTO, remote flexibility",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Walk out immediately",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Accept silently and stay bitter",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Total comp has many levers — bonus, equity, PTO, remote — base is just one of them."
             }
           ]
         }
@@ -878,18 +1555,38 @@
             {
               "prompt": "The classic scam payment methods are...",
               "options": [
-                { "label": "Gift cards, wire transfers, crypto", "isCorrect": true },
-                { "label": "Credit cards and checks", "isCorrect": false },
-                { "label": "Bank transfers between verified accounts", "isCorrect": false }
-              ]
+                {
+                  "label": "Gift cards, wire transfers, crypto",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Credit cards and checks",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Bank transfers between verified accounts",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "These methods are irreversible and untraceable — exactly why scammers demand them."
             },
             {
               "prompt": "A caller claiming to be your bank asks for the 2FA code they just \"sent you.\" You should...",
               "options": [
-                { "label": "Refuse and hang up — banks never ask for it", "isCorrect": true },
-                { "label": "Read it to them to be helpful", "isCorrect": false },
-                { "label": "Text it back", "isCorrect": false }
-              ]
+                {
+                  "label": "Refuse and hang up — banks never ask for it",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Read it to them to be helpful",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Text it back",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A 2FA code is the last lock on your account; real banks never need it — only attackers do."
             }
           ]
         },
@@ -900,18 +1597,38 @@
             {
               "prompt": "The best response to a suspicious \"bank\" message is to...",
               "options": [
-                { "label": "Contact the bank through its official number or website", "isCorrect": true },
-                { "label": "Reply to the message to verify", "isCorrect": false },
-                { "label": "Click the link to check", "isCorrect": false }
-              ]
+                {
+                  "label": "Contact the bank through its official number or website",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Reply to the message to verify",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Click the link to check",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Verification must happen through a channel YOU chose — the contact info in the message is the trap."
             },
             {
               "prompt": "A credit freeze...",
               "options": [
-                { "label": "Blocks new accounts in your name — and it's free", "isCorrect": true },
-                { "label": "Costs a monthly fee", "isCorrect": false },
-                { "label": "Lowers your credit score", "isCorrect": false }
-              ]
+                {
+                  "label": "Blocks new accounts in your name — and it's free",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Costs a monthly fee",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Lowers your credit score",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "A freeze stops anyone — including impostors — from opening credit in your name; it's free by law and doesn't hurt your score."
             }
           ]
         }
@@ -929,18 +1646,38 @@
             {
               "prompt": "Net worth equals...",
               "options": [
-                { "label": "Assets minus liabilities", "isCorrect": true },
-                { "label": "Income minus expenses", "isCorrect": false },
-                { "label": "Salary × years worked", "isCorrect": false }
-              ]
+                {
+                  "label": "Assets minus liabilities",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Income minus expenses",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Salary × years worked",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Net worth is the honest scoreboard: what you own after every debt is settled."
             },
             {
               "prompt": "A high salary guarantees...",
               "options": [
-                { "label": "Nothing about net worth without spending habits", "isCorrect": true },
-                { "label": "A high net worth", "isCorrect": false },
-                { "label": "Financial independence", "isCorrect": false }
-              ]
+                {
+                  "label": "Nothing about net worth without spending habits",
+                  "isCorrect": true
+                },
+                {
+                  "label": "A high net worth",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Financial independence",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Income isn't wealth — a $200k earner spending $210k goes backwards while a modest saver compounds."
             }
           ]
         },
@@ -951,18 +1688,38 @@
             {
               "prompt": "How often should you check your net worth?",
               "options": [
-                { "label": "Once or twice a year — the trend matters", "isCorrect": true },
-                { "label": "Every single day", "isCorrect": false },
-                { "label": "Never — it's bad luck", "isCorrect": false }
-              ]
+                {
+                  "label": "Once or twice a year — the trend matters",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Every single day",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Never — it's bad luck",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "The direction over years is the signal; checking daily just adds noise and anxiety."
             },
             {
               "prompt": "The best lens for any money decision is...",
               "options": [
-                { "label": "Does this build an asset or shrink a liability?", "isCorrect": true },
-                { "label": "Will this impress people?", "isCorrect": false },
-                { "label": "Is it on sale?", "isCorrect": false }
-              ]
+                {
+                  "label": "Does this build an asset or shrink a liability?",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Will this impress people?",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Is it on sale?",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Every money move lands on one side of that ledger — the simplest test of whether a decision builds wealth."
             }
           ]
         }
@@ -980,18 +1737,38 @@
             {
               "prompt": "Before investing in index funds, you should typically...",
               "options": [
-                { "label": "Kill high-interest debt and build the emergency fund", "isCorrect": true },
-                { "label": "Max out a credit card", "isCorrect": false },
-                { "label": "Buy a house first", "isCorrect": false }
-              ]
+                {
+                  "label": "Kill high-interest debt and build the emergency fund",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Max out a credit card",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Buy a house first",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Paying off 24% APR debt is a guaranteed 24% return — no investment reliably beats that, so order matters."
             },
             {
               "prompt": "Why automate the plan?",
               "options": [
-                { "label": "Willpower fails; automation makes good choices the default", "isCorrect": true },
-                { "label": "Automation earns extra interest", "isCorrect": false },
-                { "label": "It's legally required", "isCorrect": false }
-              ]
+                {
+                  "label": "Willpower fails; automation makes good choices the default",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Automation earns extra interest",
+                  "isCorrect": false
+                },
+                {
+                  "label": "It's legally required",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Automation removes the monthly decision — good choices happen even on your worst days."
             }
           ]
         },
@@ -1002,18 +1779,38 @@
             {
               "prompt": "\"Financial independence\" means...",
               "options": [
-                { "label": "Your investments can cover your living expenses", "isCorrect": true },
-                { "label": "You never work again under any circumstances", "isCorrect": false },
-                { "label": "You earn a six-figure salary", "isCorrect": false }
-              ]
+                {
+                  "label": "Your investments can cover your living expenses",
+                  "isCorrect": true
+                },
+                {
+                  "label": "You never work again under any circumstances",
+                  "isCorrect": false
+                },
+                {
+                  "label": "You earn a six-figure salary",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "FI is when work becomes optional: your portfolio, not your paycheck, pays your life."
             },
             {
               "prompt": "The strongest predictor of long-term financial success is...",
               "options": [
-                { "label": "Consistent automatic habits over decades", "isCorrect": true },
-                { "label": "Picking winning stocks", "isCorrect": false },
-                { "label": "Luck", "isCorrect": false }
-              ]
+                {
+                  "label": "Consistent automatic habits over decades",
+                  "isCorrect": true
+                },
+                {
+                  "label": "Picking winning stocks",
+                  "isCorrect": false
+                },
+                {
+                  "label": "Luck",
+                  "isCorrect": false
+                }
+              ],
+              "explanation": "Boring consistency beats brilliance — the investors who win are the ones who never stop."
             }
           ]
         }
