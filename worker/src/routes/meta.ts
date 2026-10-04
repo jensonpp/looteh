@@ -3,6 +3,7 @@ import type { Env, Variables } from '../types'
 import { attachUser, requireAuth } from '../middleware/auth'
 import { parseJsonBody, purchaseSchema } from '../lib/validation'
 import { awardAchievement } from '../lib/meta'
+import { getLeagueBoard } from '../lib/leagues'
 import { ACHIEVEMENTS, DAILY_QUESTS, GEM_COSTS, MAX_STREAK_FREEZES } from '../lib/quests'
 
 const meta = new Hono<{ Bindings: Env; Variables: Variables }>()
@@ -94,6 +95,11 @@ meta.get('/achievements', async (c) => {
       earnedAt: byKey.get(def.key) ?? null,
     })),
   })
+})
+
+meta.get('/league', async (c) => {
+  const user = c.var.user!
+  return c.json(await getLeagueBoard(c.env, user.userId))
 })
 
 meta.get('/shop', async (c) => {

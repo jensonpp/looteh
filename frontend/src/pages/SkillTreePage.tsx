@@ -95,6 +95,9 @@ export default function SkillTreePage() {
           <button onClick={openShop} className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
             💎 Shop
           </button>
+          <Link to="/league" className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
+            🏆 League
+          </Link>
           <Link to="/profile" className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
             Profile
           </Link>

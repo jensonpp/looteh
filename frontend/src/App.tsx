@@ -13,6 +13,7 @@ import LessonPlayerPage from './pages/LessonPlayerPage'
 import LessonResultPage from './pages/LessonResultPage'
 import LegalPage from './pages/LegalPage'
 import ProfilePage from './pages/ProfilePage'
+import LeaguePage from './pages/LeaguePage'
 
 export default function App() {
   const setUser = useAppStore((s) => s.setUser)
@@ -71,6 +72,14 @@ export default function App() {
             element={
               <RequireAuth>
                 <ProfilePage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/league"
+            element={
+              <RequireAuth>
+                <LeaguePage />
               </RequireAuth>
             }
           />

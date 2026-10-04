@@ -6,6 +6,7 @@ import { nextStreakState, xpForCorrectAnswer, xpForLessonComplete } from '../lib
 import { logEvent } from '../lib/events'
 import { normalizeAnswer } from '../lib/text'
 import { bumpDailyXp, bumpQuest, evaluateLessonAchievements } from '../lib/meta'
+import { ensureLeagueMembership } from '../lib/leagues'
 import { ACHIEVEMENTS } from '../lib/quests'
 import { answerSchema, checkSchema, lessonCompleteSchema, parseJsonBody } from '../lib/validation'
 
@@ -165,6 +166,7 @@ progress.post('/lessons/:lessonId/complete', async (c) => {
   await bumpQuest(c.env, user.userId, 'finish_1_lesson', 1)
   await bumpQuest(c.env, user.userId, 'earn_30_xp', bonusXp)
   await bumpDailyXp(c.env, user.userId, bonusXp)
+  await ensureLeagueMembership(c.env, user.userId)
 
   const earnedKeys = await evaluateLessonAchievements(c.env, user.userId, lessonId, score, nextStreak.streakCount)
   const achievementsEarned = ACHIEVEMENTS.filter((a) => earnedKeys.includes(a.key))

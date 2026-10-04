@@ -99,6 +99,20 @@ export type ShopItem = {
   maxOwned: number | null
 }
 
+export interface LeagueRow {
+  userId: string
+  name: string
+  xp: number
+  isMe: boolean
+}
+
+export interface LeagueBoard {
+  tier: 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond'
+  weekStart: string
+  myRank: number | null
+  rows: LeagueRow[]
+}
+
 export const api = {
   signup: (email: string, password: string) =>
     request<{ user: SessionUser }>('/auth/signup', { method: 'POST', body: JSON.stringify({ email, password }) }),
@@ -153,6 +167,7 @@ export const api = {
   claimQuest: (key: string) =>
     request<{ gems: number; gemsAwarded: number }>(`/meta/quests/${key}/claim`, { method: 'POST' }),
   achievements: () => request<{ achievements: Achievement[] }>('/meta/achievements'),
+  league: () => request<LeagueBoard>('/meta/league'),
   shop: () =>
     request<{ gems: number; streakFreezes: number; maxStreakFreezes: number; items: ShopItem[] }>('/meta/shop'),
   purchase: (item: 'streak_freeze' | 'heart_refill') =>
