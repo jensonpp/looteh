@@ -160,7 +160,11 @@ export default function LessonPlayerPage() {
   const exercises = useMemo(() => (lesson ? buildExercises(lesson) : []), [lesson, retryCount])
 
   if (!lesson || exercises.length === 0) {
-    return <div className="mx-auto flex max-w-2xl flex-1 items-center justify-center px-6">Loading…</div>
+    return (
+      <div className="mx-auto flex max-w-2xl flex-1 items-center justify-center px-6 text-dim">
+        Loading…
+      </div>
+    )
   }
 
   async function handleRefill() {
@@ -181,33 +185,31 @@ export default function LessonPlayerPage() {
   if (failed) {
     return (
       <div className="mx-auto flex max-w-2xl flex-1 flex-col items-center justify-center px-6 py-12 text-center">
-        <span className="text-6xl">💔</span>
-        <h1 className="mt-4 text-2xl font-semibold text-slate-900">Out of hearts!</h1>
-        <p className="mt-2 text-slate-600">
-          You missed {STARTING_HEARTS} exercises. Review the concept and try again — repetition is how it sticks.
-        </p>
-        {refillError && <p className="mt-3 text-sm text-red-600">{refillError}</p>}
-        <div className="mt-8 flex gap-3">
-          <button
-            onClick={handleRefill}
-            disabled={refilling}
-            className="rounded-md bg-emerald-600 px-4 py-2 text-white disabled:opacity-50"
-          >
-            Refill hearts (20 💎)
-          </button>
-          <button
-            onClick={() => {
-              setFailed(false)
-              setRetryCount((c) => c + 1)
-              dispatch({ type: 'retry' })
-            }}
-            className="rounded-md bg-slate-900 px-4 py-2 text-white"
-          >
-            Retry lesson
-          </button>
-          <Link to="/" className="rounded-md border border-slate-300 px-4 py-2">
-            Back to units
-          </Link>
+        <div className="glass w-full max-w-md p-8">
+          <span className="text-6xl">💔</span>
+          <h1 className="font-display mt-4 text-2xl font-semibold text-white">Out of hearts!</h1>
+          <p className="mt-2 text-dim">
+            You missed {STARTING_HEARTS} exercises. Review the concept and try again — repetition is how it sticks.
+          </p>
+          {refillError && <p className="mt-3 text-sm text-rose-400">{refillError}</p>}
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <button onClick={handleRefill} disabled={refilling} className="btn-primary px-4 py-2.5 disabled:opacity-50">
+              Refill hearts (20 💎)
+            </button>
+            <button
+              onClick={() => {
+                setFailed(false)
+                setRetryCount((c) => c + 1)
+                dispatch({ type: 'retry' })
+              }}
+              className="btn-ghost px-4 py-2.5"
+            >
+              Retry lesson
+            </button>
+            <Link to="/" className="btn-ghost px-4 py-2.5">
+              Back to units
+            </Link>
+          </div>
         </div>
       </div>
     )
@@ -294,14 +296,11 @@ export default function LessonPlayerPage() {
     <div className="mx-auto flex max-w-2xl flex-1 flex-col px-6 py-8">
       {/* Top bar: quit, progress, hearts */}
       <div className="flex items-center gap-4">
-        <Link to="/" aria-label="Quit lesson" className="text-2xl leading-none text-slate-400 hover:text-slate-600">
+        <Link to="/" aria-label="Quit lesson" className="text-2xl leading-none text-faint hover:text-white">
           ✕
         </Link>
-        <div className="h-3 flex-1 overflow-hidden rounded-full bg-slate-200">
-          <div
-            className="h-full rounded-full bg-emerald-500 transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
+        <div className="progress-track h-3 flex-1">
+          <div className="progress-fill h-full transition-all duration-500" style={{ width: `${progress}%` }} />
         </div>
         <span className="text-lg" aria-label={`${state.hearts} hearts`}>
           {'❤️'.repeat(state.hearts)}
@@ -310,22 +309,22 @@ export default function LessonPlayerPage() {
       </div>
 
       {state.combo >= 2 && !state.feedback && (
-        <p className="mt-3 self-center text-sm font-semibold text-orange-500">🔥 {state.combo} in a row!</p>
+        <p className="mt-3 self-center text-sm font-semibold text-amber-400">🔥 {state.combo} in a row!</p>
       )}
 
       {/* Exercise */}
       <div className="mt-8 flex flex-1 flex-col">
         {exercise.kind === 'teach' && (
           <>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-emerald-600">Learn</p>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-emerald-400">Learn</p>
             <ConceptCard markdown={exercise.markdown} />
           </>
         )}
 
         {exercise.kind === 'mcq' && (
           <>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-emerald-600">Check yourself</p>
-            <h2 className="text-xl font-semibold text-slate-900">{exercise.question.prompt}</h2>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-emerald-400">Check yourself</p>
+            <h2 className="text-xl font-semibold text-white">{exercise.question.prompt}</h2>
             <div className="mt-6 flex flex-col gap-3">
               {exercise.question.options.map((option) => {
                 const selected = state.selectedOptionId === option.id
@@ -336,14 +335,14 @@ export default function LessonPlayerPage() {
                     key={option.id}
                     disabled={state.feedback !== null}
                     onClick={() => dispatch({ type: 'select_option', optionId: option.id })}
-                    className={`rounded-xl border-2 px-4 py-3 text-left transition-colors ${
+                    className={`rounded-xl border px-4 py-3 text-left transition-all duration-150 ${
                       isCorrectOption
-                        ? 'border-emerald-500 bg-emerald-50'
+                        ? 'border-emerald-400/60 bg-emerald-400/15 text-emerald-200 shadow-[0_0_16px_rgba(52,211,153,0.2)]'
                         : isSelectedWrong
-                          ? 'border-red-400 bg-red-50'
+                          ? 'border-rose-400/60 bg-rose-400/15 text-rose-200'
                           : selected
-                            ? 'border-slate-900 bg-slate-50'
-                            : 'border-slate-200 hover:border-slate-400'
+                            ? 'border-cyan-400/60 bg-cyan-400/10 text-white'
+                            : 'border-white/10 bg-white/[0.04] text-slate-200 hover:border-cyan-400/40 hover:bg-white/[0.07]'
                     }`}
                   >
                     {option.label}
@@ -356,21 +355,19 @@ export default function LessonPlayerPage() {
 
         {exercise.kind === 'truefalse' && (
           <>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-emerald-600">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-emerald-400">
               Review — true or false
             </p>
-            <h2 className="text-xl font-semibold text-slate-900">{exercise.question.prompt}</h2>
-            <blockquote className="mt-4 rounded-xl border-2 border-slate-200 bg-slate-50 px-4 py-3 text-lg text-slate-800">
-              “{exercise.statementLabel}”
-            </blockquote>
+            <h2 className="text-xl font-semibold text-white">{exercise.question.prompt}</h2>
+            <blockquote className="glass mt-4 px-4 py-3 text-lg text-slate-200">“{exercise.statementLabel}”</blockquote>
             <div className="mt-6 grid grid-cols-2 gap-3">
               <button
                 disabled={state.feedback !== null}
                 onClick={() => dispatch({ type: 'set_says_true', value: false })}
-                className={`rounded-xl border-2 px-4 py-4 text-lg font-semibold transition-colors ${
+                className={`rounded-xl border px-4 py-4 text-lg font-semibold transition-all duration-150 ${
                   state.saysTrue === false
-                    ? 'border-red-500 bg-red-50 text-red-700'
-                    : 'border-slate-200 text-slate-700 hover:border-red-300'
+                    ? 'border-rose-400/60 bg-rose-400/15 text-rose-300 shadow-[0_0_16px_rgba(251,113,133,0.2)]'
+                    : 'border-white/10 bg-white/[0.04] text-slate-300 hover:border-rose-400/40'
                 }`}
               >
                 False
@@ -378,10 +375,10 @@ export default function LessonPlayerPage() {
               <button
                 disabled={state.feedback !== null}
                 onClick={() => dispatch({ type: 'set_says_true', value: true })}
-                className={`rounded-xl border-2 px-4 py-4 text-lg font-semibold transition-colors ${
+                className={`rounded-xl border px-4 py-4 text-lg font-semibold transition-all duration-150 ${
                   state.saysTrue === true
-                    ? 'border-emerald-500 bg-emerald-50 text-emerald-700'
-                    : 'border-slate-200 text-slate-700 hover:border-emerald-300'
+                    ? 'border-emerald-400/60 bg-emerald-400/15 text-emerald-300 shadow-[0_0_16px_rgba(52,211,153,0.2)]'
+                    : 'border-white/10 bg-white/[0.04] text-slate-300 hover:border-emerald-400/40'
                 }`}
               >
                 True
@@ -392,10 +389,10 @@ export default function LessonPlayerPage() {
 
         {exercise.kind === 'typein' && (
           <>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-emerald-600">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-emerald-400">
               Review — type the answer
             </p>
-            <h2 className="text-xl font-semibold text-slate-900">{exercise.question.prompt}</h2>
+            <h2 className="text-xl font-semibold text-white">{exercise.question.prompt}</h2>
             <input
               type="text"
               value={state.typedText}
@@ -405,7 +402,7 @@ export default function LessonPlayerPage() {
                 if (e.key === 'Enter') handleCheck()
               }}
               placeholder="Type your answer…"
-              className="mt-6 w-full rounded-xl border-2 border-slate-200 px-4 py-3 text-lg focus:border-slate-900 focus:outline-none disabled:bg-slate-50"
+              className="input-dark mt-6 w-full px-4 py-3 text-lg"
             />
           </>
         )}
@@ -413,11 +410,17 @@ export default function LessonPlayerPage() {
 
       {/* Bottom: feedback panel or action button */}
       {state.feedback ? (
-        <div className={`mt-6 rounded-2xl p-5 ${state.feedback.correct ? 'bg-emerald-50' : 'bg-red-50'}`}>
+        <div
+          className={`mt-6 rounded-2xl border p-5 ${
+            state.feedback.correct
+              ? 'border-emerald-400/30 bg-emerald-950/40'
+              : 'border-rose-400/30 bg-rose-950/40'
+          }`}
+        >
           <div className="flex items-start gap-3">
             <span className="text-2xl">{state.feedback.correct ? '✅' : '❌'}</span>
             <div className="flex-1">
-              <p className={`font-semibold ${state.feedback.correct ? 'text-emerald-700' : 'text-red-700'}`}>
+              <p className={`font-semibold ${state.feedback.correct ? 'text-emerald-300' : 'text-rose-300'}`}>
                 {state.feedback.correct
                   ? state.feedback.xpAwarded > 0
                     ? `Correct! +${state.feedback.xpAwarded} XP`
@@ -427,14 +430,11 @@ export default function LessonPlayerPage() {
                     : 'Not quite.'}
               </p>
               {state.feedback.explanation && (
-                <p className="mt-1 text-sm leading-relaxed text-slate-700">{state.feedback.explanation}</p>
+                <p className="mt-1 text-sm leading-relaxed text-slate-300">{state.feedback.explanation}</p>
               )}
             </div>
           </div>
-          <button
-            onClick={handleContinue}
-            className="mt-4 w-full rounded-xl bg-slate-900 px-4 py-3 font-semibold text-white hover:bg-slate-800"
-          >
+          <button onClick={handleContinue} className="btn-primary mt-4 w-full px-4 py-3">
             {state.hearts <= 0 ? 'See results' : isLastStep ? 'Finish lesson' : 'Continue'}
           </button>
         </div>
@@ -443,7 +443,7 @@ export default function LessonPlayerPage() {
           <button
             onClick={exercise.kind === 'teach' ? handleContinue : handleCheck}
             disabled={exercise.kind !== 'teach' && (!canCheck || submitting)}
-            className="w-full rounded-xl bg-emerald-500 px-4 py-3 font-semibold text-white hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-40"
+            className="btn-primary w-full px-4 py-3 disabled:cursor-not-allowed disabled:opacity-40"
           >
             {submitting ? 'Checking…' : exercise.kind === 'teach' ? 'Got it' : 'Check'}
           </button>

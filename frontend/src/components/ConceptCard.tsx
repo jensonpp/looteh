@@ -21,7 +21,7 @@ export default function ConceptCard({ markdown }: { markdown: string }) {
       {blocks.map((block, i) => {
         if (block.startsWith('## ')) {
           return (
-            <h2 key={i} className="text-xl font-semibold text-slate-900">
+            <h2 key={i} className="font-display text-xl font-semibold text-white">
               {block.slice(3)}
             </h2>
           )
@@ -29,7 +29,7 @@ export default function ConceptCard({ markdown }: { markdown: string }) {
         const lines = block.split('\n')
         if (lines.length > 0 && lines.every((line) => line.startsWith('- '))) {
           return (
-            <ul key={i} className="list-disc space-y-1 pl-5 leading-relaxed text-slate-700">
+            <ul key={i} className="list-disc space-y-1 pl-5 leading-relaxed text-slate-300">
               {lines.map((line, j) => (
                 <li key={j}>{renderInline(line.slice(2), `li-${i}-${j}`)}</li>
               ))}
@@ -37,7 +37,7 @@ export default function ConceptCard({ markdown }: { markdown: string }) {
           )
         }
         return (
-          <p key={i} className="leading-relaxed text-slate-700">
+          <p key={i} className="leading-relaxed text-slate-300">
             {renderInline(block, `p-${i}`)}
           </p>
         )

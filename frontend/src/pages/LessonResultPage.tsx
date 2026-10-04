@@ -66,8 +66,8 @@ export default function LessonResultPage() {
   if (!result) {
     return (
       <div className="mx-auto flex max-w-2xl flex-1 flex-col items-center justify-center px-6 py-12 text-center">
-        <p className="text-slate-500">No result data — did you land here directly?</p>
-        <Link to="/" className="mt-4 underline">
+        <p className="text-dim">No result data — did you land here directly?</p>
+        <Link to="/" className="mt-4 text-cyan-300 underline hover:text-cyan-200">
           Back to units
         </Link>
       </div>
@@ -79,38 +79,38 @@ export default function LessonResultPage() {
   return (
     <div className="relative mx-auto flex max-w-2xl flex-1 flex-col items-center justify-center px-6 py-12 text-center">
       {result.score >= 50 && <Confetti />}
-      <h1 className="text-3xl font-semibold text-slate-900">Lesson complete! 🎉</h1>
-      <p className="mt-4 text-5xl font-bold text-emerald-600">{result.score}%</p>
+      <h1 className="font-display text-3xl font-semibold text-white">Lesson complete! 🎉</h1>
+      <p className="glow-text mt-4 text-5xl font-bold text-emerald-400">{result.score}%</p>
 
-      <div className="mt-8 w-full max-w-sm rounded-2xl border border-slate-200 bg-white p-5 text-left shadow-sm">
-        <p className="text-sm font-semibold uppercase tracking-wide text-slate-500">XP earned</p>
-        <div className="mt-3 flex justify-between text-slate-700">
+      <div className="glass mt-8 w-full max-w-sm p-5 text-left">
+        <p className="text-sm font-semibold uppercase tracking-widest text-dim">XP earned</p>
+        <div className="mt-3 flex justify-between text-slate-300">
           <span>Correct answers</span>
           <span className="font-semibold">+{result.correctXp} XP</span>
         </div>
-        <div className="mt-1 flex justify-between text-slate-700">
+        <div className="mt-1 flex justify-between text-slate-300">
           <span>Lesson bonus</span>
           <span className="font-semibold">+{result.bonusXpAwarded} XP</span>
         </div>
-        <div className="mt-3 flex justify-between border-t border-slate-200 pt-3 text-slate-900">
+        <div className="mt-3 flex justify-between border-t border-white/10 pt-3 text-white">
           <span className="font-semibold">Total</span>
-          <span className="font-bold text-emerald-600">+{totalXp} XP</span>
+          <span className="glow-text font-bold text-emerald-400">+{totalXp} XP</span>
         </div>
       </div>
 
-      <p className="mt-6 text-slate-600">
+      <p className="mt-6 text-dim">
         ❤️ {result.heartsLeft} hearts left &nbsp;·&nbsp; 🔥 Best combo: {result.bestCombo} &nbsp;·&nbsp; Day streak:{' '}
         {result.streakCount}
       </p>
 
       {result.achievementsEarned && result.achievementsEarned.length > 0 && (
-        <div className="mt-6 w-full max-w-sm rounded-2xl border border-emerald-300 bg-emerald-50 p-5 text-left">
-          <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Achievements unlocked!</p>
+        <div className="mt-6 w-full max-w-sm rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-5 text-left shadow-[0_0_24px_rgba(52,211,153,0.15)]">
+          <p className="text-sm font-semibold uppercase tracking-widest text-emerald-300">Achievements unlocked!</p>
           <ul className="mt-3 flex flex-col gap-2">
             {result.achievementsEarned.map((a) => (
               <li key={a.key} className="flex items-center justify-between gap-2">
-                <span className="text-sm font-medium text-slate-900">🏆 {a.title}</span>
-                <span className="text-xs text-slate-500">+{a.gemsReward} 💎</span>
+                <span className="text-sm font-medium text-white">🏆 {a.title}</span>
+                <span className="text-xs text-dim">+{a.gemsReward} 💎</span>
               </li>
             ))}
           </ul>
@@ -118,11 +118,11 @@ export default function LessonResultPage() {
       )}
 
       <div className="mt-8 flex gap-3">
-        <Link to="/" className="rounded-md bg-slate-900 px-4 py-2 text-white">
+        <Link to="/" className="btn-primary px-4 py-2.5">
           Back to units
         </Link>
         {lessonId && (
-          <Link to={`/lessons/${lessonId}`} className="rounded-md border border-slate-300 px-4 py-2">
+          <Link to={`/lessons/${lessonId}`} className="btn-ghost px-4 py-2.5">
             Retry lesson
           </Link>
         )}

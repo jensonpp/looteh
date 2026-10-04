@@ -31,7 +31,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div className="flex min-h-screen flex-col bg-white text-slate-900">
+      <div className="flex min-h-screen flex-col text-slate-100">
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />

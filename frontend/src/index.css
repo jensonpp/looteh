@@ -1,1 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 @import "tailwindcss";
+
+/* ── Dark-futuristic design system ─────────────────────────────── */
+
+:root {
+  --bg: #05070d;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(13, 17, 28, 0.88);
+  --border: rgba(255, 255, 255, 0.09);
+  --accent: #34d399;
+  --accent-2: #22d3ee;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 12% -5%, rgba(52, 211, 153, 0.11), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 88% 105%, rgba(124, 58, 237, 0.11), transparent 60%),
+    radial-gradient(ellipse 40% 30% at 85% 8%, rgba(34, 211, 238, 0.06), transparent 60%);
+  background-attachment: fixed;
+  color: #e2e8f0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* Frosted translucent card */
+.glass {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 1rem;
+}
+
+.glass-hover {
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.glass-hover:hover {
+  border-color: rgba(52, 211, 153, 0.45);
+  box-shadow: 0 0 24px rgba(52, 211, 153, 0.12);
+}
+
+/* Opaque surface for modals/overlays */
+.glass-strong {
+  background: var(--surface-strong);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-radius: 1.25rem;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+/* Gradient action button with neon glow */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #04110b;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 24px rgba(52, 211, 153, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: box-shadow 0.2s, transform 0.2s, filter 0.2s;
+}
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 0 36px rgba(52, 211, 153, 0.45);
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Quiet glass button */
+.btn-ghost {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: #cbd5e1;
+  border-radius: 0.75rem;
+  transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.btn-ghost:hover {
+  border-color: rgba(52, 211, 153, 0.5);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.15);
+}
+
+/* Form inputs */
+.input-dark {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  color: #f1f5f9;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input-dark::placeholder {
+  color: #64748b;
+}
+.input-dark:focus {
+  outline: none;
+  border-color: rgba(34, 211, 238, 0.6);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15), 0 0 20px rgba(34, 211, 238, 0.12);
+}
+
+/* Text helpers */
+.text-dim {
+  color: #94a3b8;
+}
+.text-faint {
+  color: #64748b;
+}
+.glow-text {
+  text-shadow: 0 0 28px rgba(52, 211, 153, 0.55);
+}
+
+/* Progress bars */
+.progress-track {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.progress-fill {
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  border-radius: 9999px;
+  box-shadow: 0 0 12px rgba(52, 211, 153, 0.5);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Pulsing halo for the current lesson node */
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(34, 211, 238, 0); }
+}
+.pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+::selection {
+  background: rgba(52, 211, 153, 0.3);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

@@ -26,18 +26,18 @@ export default function PracticePage() {
       .catch(() => setError('Failed to load practice questions.'))
   }, [])
 
-  if (error) return <div className="mx-auto max-w-2xl px-6 py-12 text-rose-600">{error}</div>
-  if (!questions) return <div className="mx-auto max-w-2xl px-6 py-12 text-slate-500">Loading practice…</div>
+  if (error) return <div className="mx-auto max-w-2xl px-6 py-12 text-rose-400">{error}</div>
+  if (!questions) return <div className="mx-auto max-w-2xl px-6 py-12 text-dim">Loading practice…</div>
 
   if (questions.length === 0) {
     return (
       <div className="mx-auto flex max-w-2xl flex-1 flex-col items-center px-6 py-16 text-center">
         <span className="text-6xl">🎉</span>
-        <h1 className="mt-4 text-2xl font-semibold text-slate-900">No mistakes to practice!</h1>
-        <p className="mt-2 text-slate-600">
+        <h1 className="font-display mt-4 text-2xl font-semibold text-white">No mistakes to practice!</h1>
+        <p className="mt-2 text-dim">
           You haven't missed any questions yet. Keep learning — they'll show up here when you do.
         </p>
-        <Link to="/" className="mt-8 rounded-md bg-slate-900 px-4 py-2 text-white">
+        <Link to="/" className="btn-ghost mt-8 px-4 py-2.5">
           Back to the path
         </Link>
       </div>
@@ -48,12 +48,12 @@ export default function PracticePage() {
     return (
       <div className="mx-auto flex max-w-2xl flex-1 flex-col items-center px-6 py-16 text-center">
         <span className="text-6xl">🎯</span>
-        <h1 className="mt-4 text-2xl font-semibold text-slate-900">Practice complete!</h1>
-        <p className="mt-2 text-slate-600">
+        <h1 className="font-display mt-4 text-2xl font-semibold text-white">Practice complete!</h1>
+        <p className="mt-2 text-dim">
           You reviewed {questions.length} question{questions.length === 1 ? '' : 's'} and earned{' '}
-          <span className="font-semibold text-slate-900">{xpEarned} XP</span>.
+          <span className="glow-text font-semibold text-emerald-400">{xpEarned} XP</span>.
         </p>
-        <Link to="/" className="mt-8 rounded-md bg-emerald-600 px-4 py-2 text-white">
+        <Link to="/" className="btn-primary mt-8 px-4 py-2.5">
           Back to the path
         </Link>
       </div>
@@ -95,24 +95,24 @@ export default function PracticePage() {
   return (
     <div className="mx-auto flex max-w-2xl flex-1 flex-col px-6 py-12 text-left">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-slate-900">Practice your mistakes</h1>
-        <Link to="/" className="text-sm text-slate-500 hover:text-slate-900">
+        <h1 className="font-display text-2xl font-semibold text-white">Practice your mistakes</h1>
+        <Link to="/" className="text-sm text-faint hover:text-slate-200">
           &larr; Back to the path
         </Link>
       </div>
 
-      <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-100">
+      <div className="progress-track mt-4 h-2">
         <div
-          className="h-full rounded-full bg-emerald-500 transition-all"
+          className="progress-fill h-full transition-all"
           style={{ width: `${feedback ? ((index + 1) / questions.length) * 100 : progress}%` }}
         />
       </div>
-      <p className="mt-2 text-xs text-slate-400">
+      <p className="mt-2 text-xs text-faint">
         Question {index + 1} of {questions.length} · no hearts, full XP
       </p>
 
-      <div className="mt-8 rounded-xl border border-slate-200 p-6">
-        <p className="text-lg font-medium text-slate-900">{question.prompt}</p>
+      <div className="glass mt-8 p-6">
+        <p className="text-lg font-medium text-white">{question.prompt}</p>
         <ul className="mt-5 flex flex-col gap-3">
           {question.options.map((option) => {
             const isPicked = selected === option.id
@@ -122,16 +122,16 @@ export default function PracticePage() {
                 <button
                   onClick={() => !feedback && setSelected(option.id)}
                   disabled={Boolean(feedback)}
-                  className={`w-full rounded-lg border px-4 py-3 text-left text-sm transition-colors ${
+                  className={`w-full rounded-xl border px-4 py-3 text-left text-sm transition-all duration-150 ${
                     feedback
                       ? isCorrectOption
-                        ? 'border-emerald-500 bg-emerald-50 text-emerald-900'
+                        ? 'border-emerald-400/60 bg-emerald-400/15 text-emerald-200 shadow-[0_0_16px_rgba(52,211,153,0.2)]'
                         : isPicked
-                          ? 'border-rose-400 bg-rose-50 text-rose-900'
-                          : 'border-slate-200 text-slate-400'
+                          ? 'border-rose-400/60 bg-rose-400/15 text-rose-200'
+                          : 'border-white/10 text-slate-500 opacity-60'
                       : isPicked
-                        ? 'border-sky-500 bg-sky-50'
-                        : 'border-slate-300 hover:border-slate-500'
+                        ? 'border-cyan-400/60 bg-cyan-400/10 text-white'
+                        : 'border-white/10 bg-white/[0.04] text-slate-200 hover:border-cyan-400/40 hover:bg-white/[0.07]'
                   }`}
                 >
                   {option.label}
@@ -143,8 +143,10 @@ export default function PracticePage() {
 
         {feedback && (
           <div
-            className={`mt-5 rounded-lg px-4 py-3 text-sm ${
-              feedback.correct ? 'bg-emerald-50 text-emerald-900' : 'bg-rose-50 text-rose-900'
+            className={`mt-5 rounded-xl border px-4 py-3 text-sm ${
+              feedback.correct
+                ? 'border-emerald-400/30 bg-emerald-950/40 text-emerald-200'
+                : 'border-rose-400/30 bg-rose-950/40 text-rose-200'
             }`}
           >
             <p className="font-semibold">
@@ -156,20 +158,20 @@ export default function PracticePage() {
                       : ''
                   }`}
             </p>
-            {feedback.explanation && <p className="mt-1 text-slate-600">{feedback.explanation}</p>}
+            {feedback.explanation && <p className="mt-1 text-slate-300">{feedback.explanation}</p>}
           </div>
         )}
 
         <div className="mt-6">
           {feedback ? (
-            <button onClick={handleNext} className="rounded-md bg-slate-900 px-5 py-2.5 text-white">
+            <button onClick={handleNext} className="btn-primary px-5 py-2.5">
               {index + 1 >= questions.length ? 'Finish' : 'Next'}
             </button>
           ) : (
             <button
               onClick={handleAnswer}
               disabled={!selected || submitting}
-              className="rounded-md bg-emerald-600 px-5 py-2.5 text-white disabled:opacity-40"
+              className="btn-primary px-5 py-2.5 disabled:opacity-40"
             >
               {submitting ? 'Checking…' : 'Check'}
             </button>

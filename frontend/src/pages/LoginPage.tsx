@@ -31,15 +31,16 @@ export default function LoginPage() {
 
   return (
     <div className="mx-auto flex max-w-sm flex-1 flex-col justify-center px-6 py-12">
-      <h1 className="text-2xl font-semibold text-slate-900">Log in</h1>
-      <form className="mt-6 flex flex-col gap-4" onSubmit={handleSubmit}>
+      <h1 className="font-display text-3xl font-semibold text-white">Log in</h1>
+      <p className="mt-1 text-sm text-dim">Continue your streak.</p>
+      <form className="glass mt-8 flex flex-col gap-4 p-6" onSubmit={handleSubmit}>
         <input
           type="email"
           required
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="rounded-md border border-slate-300 px-3 py-2"
+          className="input-dark px-3 py-2.5"
         />
         <input
           type="password"
@@ -47,20 +48,20 @@ export default function LoginPage() {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="rounded-md border border-slate-300 px-3 py-2"
+          className="input-dark px-3 py-2.5"
         />
-        {error && <p className="text-sm text-red-600">{error}</p>}
+        {error && <p className="text-sm text-rose-400">{error}</p>}
         <button
           type="submit"
           disabled={loading}
-          className="rounded-md bg-slate-900 px-3 py-2 text-white disabled:opacity-50"
+          className="btn-primary px-3 py-2.5 disabled:opacity-50"
         >
           {loading ? 'Logging in…' : 'Log in'}
         </button>
       </form>
-      <p className="mt-4 text-sm text-slate-500">
+      <p className="mt-4 text-sm text-dim">
         Don't have an account?{' '}
-        <Link to="/signup" className="underline hover:text-slate-700">
+        <Link to="/signup" className="text-cyan-300 underline hover:text-cyan-200">
           Sign up
         </Link>
       </p>

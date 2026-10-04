@@ -21,26 +21,26 @@ export default function UnitLessonsPage() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-1 flex-col px-6 py-12 text-left">
-      <Link to="/" className="text-sm text-slate-500 hover:underline">
+      <Link to="/" className="text-sm text-faint hover:text-slate-200">
         ← Back to units
       </Link>
-      <h1 className="mt-4 text-2xl font-semibold text-slate-900">Lessons</h1>
+      <h1 className="font-display mt-4 text-2xl font-semibold text-white">Lessons</h1>
       <ul className="mt-6 flex flex-col gap-3">
         {lessons?.map((lesson) => (
           <li key={lesson.id}>
             <Link
               to={`/lessons/${lesson.id}`}
-              className="flex items-center justify-between rounded-lg border border-slate-300 px-4 py-3 hover:border-slate-900"
+              className="glass glass-hover flex items-center justify-between px-4 py-3"
             >
-              <span>{lesson.status === 'completed' ? '✅' : '📝'} {lesson.title}</span>
+              <span className="text-slate-200">{lesson.status === 'completed' ? '✅' : '📝'} {lesson.title}</span>
               <span className="flex items-center gap-2">
                 {isStale(lesson) && (
-                  <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
+                  <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-2.5 py-0.5 text-xs font-medium text-amber-300">
                     🎯 Practice
                   </span>
                 )}
                 {lesson.status === 'completed' && (
-                  <span className="text-xs text-slate-500">Best: {lesson.bestScore}%</span>
+                  <span className="text-xs text-faint">Best: {lesson.bestScore}%</span>
                 )}
               </span>
             </Link>
