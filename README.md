@@ -94,6 +94,10 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
 - [x] Production content deploy: 0003 migration applied to remote D1, worker redeployed with
       `--env production` (deploy script fixed to include it) — verified live at
       https://finlit.jensonsworld.workers.dev: 6 units, correct lock chain, zod validation returning 400s.
+- [x] Full curriculum authored & seeded: units 1–20 (40 lessons, 80 questions) — Money Mindset through
+      Putting It Together, matching the plan doc's 20-unit outline. Incremental generator emitted
+      `0004_seed_content.sql` (14 new units; 1–6 skipped), applied locally and verified: 20 units,
+      unlock chain intact (completing unit 1 unlocks unit 2), 30/30 tests, `tsc --noEmit` clean.
 
 ## Bugs found & fixed during manual testing
 - **Session cookie `Secure` flag in local dev**: was hardcoded `true`, which some browsers (Safari) silently
@@ -122,9 +126,8 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
   `message` field suppressed when `APP_ENV === 'production'` to avoid leaking internals to real users.
 
 
-## Remaining before this is more than a 6-unit course
-- Author the rest of the curriculum (`worker/seed/units.json`) past unit 6 — see candidate outline in the plan doc.
-- Set up real PostHog + Resend accounts and verify the live retention loop (see README "Required third-party accounts").
+## Remaining before this is a finished product
+- Set up real PostHog + Resend accounts and verify the live retention loop (see README "Required third-party accounts") — deferred for now.
 - Wire up CI auto-deploy on push (Cloudflare Workers Builds, Git-connected) — currently deploys are manual via
   `npm run deploy` (which builds the frontend, then runs `wrangler deploy --env production`). Dashboard steps:
   1. Cloudflare dashboard → Workers & Pages → **finlit** → Settings → **Build** → "Connect" next to "Source code".
