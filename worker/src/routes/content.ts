@@ -53,6 +53,65 @@ content.get('/units', async (c) => {
   return c.json({ units: result })
 })
 
+/** Full learning path in one call: units with their lessons + per-lesson progress. */
+content.get('/tree', async (c) => {
+  const user = c.var.user!
+
+  const { results: units } = await c.env.DB.prepare(
+    'SELECT id, slug, title, sort_order, unlock_requires_unit_id FROM units ORDER BY sort_order',
+  ).all<{ id: string; slug: string; title: string; sort_order: number; unlock_requires_unit_id: string | null }>()
+
+  const { results: lessons } = await c.env.DB.prepare(
+    'SELECT id, unit_id, title, sort_order FROM lessons ORDER BY sort_order',
+  ).all<{ id: string; unit_id: string; title: string; sort_order: number }>()
+
+  const { results: progress } = await c.env.DB.prepare(
+    'SELECT lesson_id, status, best_score FROM user_lesson_progress WHERE user_id = ?',
+  )
+    .bind(user.userId)
+    .all<{ lesson_id: string; status: string; best_score: number }>()
+
+  const progressByLesson = new Map(progress.map((p) => [p.lesson_id, p]))
+  const lessonsByUnit = new Map<string, typeof lessons>()
+  for (const l of lessons) {
+    const list = lessonsByUnit.get(l.unit_id) ?? []
+    list.push(l)
+    lessonsByUnit.set(l.unit_id, list)
+  }
+
+  const unitById = new Map(units.map((u) => [u.id, u]))
+  const completedCount = (unitId: string) =>
+    (lessonsByUnit.get(unitId) ?? []).filter(
+      (l) => progressByLesson.get(l.id)?.status === 'completed',
+    ).length
+
+  const tree = units.map((unit) => {
+    const unitLessons = lessonsByUnit.get(unit.id) ?? []
+    const requiredUnit = unit.unlock_requires_unit_id ? unitById.get(unit.unlock_requires_unit_id) : null
+    const requiredComplete =
+      !requiredUnit || (() => {
+        const total = (lessonsByUnit.get(requiredUnit.id) ?? []).length
+        return total > 0 && completedCount(requiredUnit.id) >= total
+      })()
+
+    return {
+      id: unit.id,
+      slug: unit.slug,
+      title: unit.title,
+      locked: !requiredComplete,
+      completed: unitLessons.length > 0 && completedCount(unit.id) >= unitLessons.length,
+      lessons: unitLessons.map((l) => ({
+        id: l.id,
+        title: l.title,
+        status: progressByLesson.get(l.id)?.status ?? 'not_started',
+        bestScore: progressByLesson.get(l.id)?.best_score ?? 0,
+      })),
+    }
+  })
+
+  return c.json({ tree })
+})
+
 content.get('/units/:unitId/lessons', async (c) => {
   const unitId = c.req.param('unitId')
   const user = c.var.user!

@@ -40,6 +40,15 @@ export type UnitSummary = {
 
 export type LessonSummary = { id: string; title: string; status: string; bestScore: number }
 
+export type TreeUnit = {
+  id: string
+  slug: string
+  title: string
+  locked: boolean
+  completed: boolean
+  lessons: LessonSummary[]
+}
+
 export type LessonQuestion = {
   id: string
   prompt: string
@@ -121,6 +130,7 @@ export const api = {
   logout: () => request<{ ok: true }>('/auth/logout', { method: 'POST' }),
   session: () => request<{ user: SessionUser | null }>('/auth/session'),
   units: () => request<{ units: UnitSummary[] }>('/units'),
+  tree: () => request<{ tree: TreeUnit[] }>('/tree'),
   unitLessons: (unitId: string) => request<{ lessons: LessonSummary[] }>(`/units/${unitId}/lessons`),
   lesson: (lessonId: string) => request<{ lesson: LessonDetail }>(`/lessons/${lessonId}`),
   startLesson: (lessonId: string) => request<{ ok: true }>(`/lessons/${lessonId}/start`, { method: 'POST' }),

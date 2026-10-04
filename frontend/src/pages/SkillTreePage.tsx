@@ -1,7 +1,124 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { api, type Quest, type ShopItem, type UnitSummary } from '../api/client'
+import { api, type Quest, type ShopItem, type TreeUnit } from '../api/client'
 import { useAppStore } from '../store/useAppStore'
+
+const UNIT_COLORS = ['#34d399', '#38bdf8', '#a78bfa', '#fbbf24', '#fb7185']
+/** Horizontal offsets (as % of path width) the nodes wind through. */
+const NODE_OFFSETS = [6, 28, 50, 28]
+
+function LessonNode({
+  lessonId,
+  index,
+  offset,
+  state,
+  isCurrent,
+}: {
+  lessonId: string
+  index: number
+  offset: number
+  state: 'completed' | 'playable' | 'locked'
+  isCurrent: boolean
+}) {
+  const style = { marginLeft: `${offset}%` }
+
+  if (state === 'locked') {
+    return (
+      <div className="mt-6" style={style}>
+        <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-slate-200 bg-slate-100 text-xl text-slate-400">
+          🔒
+        </div>
+      </div>
+    )
+  }
+
+  const completed = state === 'completed'
+  return (
+    <div className="relative mt-6" style={style}>
+      {isCurrent && (
+        <span className="absolute -top-7 left-1/2 -translate-x-1/2 rounded-md bg-emerald-600 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+          Start
+        </span>
+      )}
+      <Link
+        to={`/lessons/${lessonId}`}
+        aria-label={`Lesson ${index + 1}${completed ? ' (completed)' : ''}`}
+        className={`flex h-16 w-16 items-center justify-center rounded-full border-b-4 text-2xl font-bold transition-transform hover:scale-105 ${
+          completed
+            ? 'border-emerald-700 bg-emerald-500 text-white'
+            : isCurrent
+              ? 'border-sky-600 bg-white text-sky-600 ring-4 ring-sky-200'
+              : 'border-slate-300 bg-white text-slate-400'
+        }`}
+      >
+        {completed ? '✓' : '★'}
+      </Link>
+    </div>
+  )
+}
+
+function UnitSection({
+  unit,
+  colorIndex,
+  currentLessonId,
+}: {
+  unit: TreeUnit
+  colorIndex: number
+  currentLessonId: string | null
+}) {
+  const color = UNIT_COLORS[colorIndex % UNIT_COLORS.length]
+  const done = unit.lessons.filter((l) => l.status === 'completed').length
+
+  return (
+    <section className="mt-10">
+      <div
+        className="flex items-center justify-between rounded-xl px-5 py-3 text-white"
+        style={{ background: unit.locked ? '#94a3b8' : color }}
+      >
+        <span className="text-sm font-bold uppercase tracking-wide">
+          {unit.locked ? `🔒 ${unit.title}` : unit.title}
+        </span>
+        <span className="text-xs font-semibold text-white/85">
+          {done}/{unit.lessons.length}
+        </span>
+      </div>
+
+      <div className="px-2">
+        {unit.lessons.map((lesson, i) => {
+          const state = unit.locked
+            ? 'locked'
+            : lesson.status === 'completed'
+              ? 'completed'
+              : 'playable'
+          return (
+            <LessonNode
+              key={lesson.id}
+              lessonId={lesson.id}
+              index={i}
+              offset={NODE_OFFSETS[i % NODE_OFFSETS.length]}
+              state={state}
+              isCurrent={lesson.id === currentLessonId}
+            />
+          )
+        })}
+
+        {/* Unit-end chest — lights up when every lesson is done (unit champion). */}
+        <div className="mt-6" style={{ marginLeft: `${NODE_OFFSETS[1]}%` }}>
+          <div
+            title={unit.completed ? 'Unit champion — chest unlocked!' : 'Complete every lesson to open the chest'}
+            className={`flex h-16 w-16 items-center justify-center rounded-full border-b-4 text-3xl ${
+              unit.completed
+                ? 'animate-bounce border-amber-600 bg-amber-400 shadow-lg shadow-amber-200'
+                : 'border-slate-200 bg-slate-100 opacity-60 grayscale'
+            }`}
+          >
+            🎁
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function SkillTreePage() {
   const user = useAppStore((s) => s.user)
@@ -13,7 +130,7 @@ export default function SkillTreePage() {
   const setGems = useAppStore((s) => s.setGems)
   const navigate = useNavigate()
 
-  const [units, setUnits] = useState<UnitSummary[] | null>(null)
+  const [tree, setTree] = useState<TreeUnit[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [quests, setQuests] = useState<Quest[] | null>(null)
   const [shopOpen, setShopOpen] = useState(false)
@@ -22,9 +139,9 @@ export default function SkillTreePage() {
 
   useEffect(() => {
     api
-      .units()
-      .then(({ units }) => setUnits(units))
-      .catch(() => setError('Failed to load units.'))
+      .tree()
+      .then(({ tree }) => setTree(tree))
+      .catch(() => setError('Failed to load the path.'))
     api
       .profile()
       .then((p) => setStats({ xpTotal: p.xpTotal, streakCount: p.streakCount, gems: p.gems }))
@@ -37,6 +154,12 @@ export default function SkillTreePage() {
       })
       .catch(() => {})
   }, [setStats, setGems])
+
+  // The "Start" flag sits on the first incomplete lesson of the first unlocked unit.
+  const currentLessonId =
+    tree?.find((u) => !u.locked && u.lessons.some((l) => l.status !== 'completed'))?.lessons.find(
+      (l) => l.status !== 'completed',
+    )?.id ?? null
 
   async function handleLogout() {
     await api.logout().catch(() => {})
@@ -143,28 +266,9 @@ export default function SkillTreePage() {
         </section>
       )}
 
-      <ul className="mt-10 flex flex-col gap-3">
-        {units?.map((unit) => (
-          <li key={unit.id}>
-            {unit.locked ? (
-              <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-slate-400">
-                <span>🔒 {unit.title}</span>
-                <span className="text-xs">Locked</span>
-              </div>
-            ) : (
-              <Link
-                to={`/units/${unit.id}`}
-                className="flex items-center justify-between rounded-lg border border-slate-300 px-4 py-3 hover:border-slate-900"
-              >
-                <span>{unit.completed ? '✅' : '📘'} {unit.title}</span>
-                <span className="text-xs text-slate-500">
-                  {unit.completedLessonCount}/{unit.lessonCount} lessons
-                </span>
-              </Link>
-            )}
-          </li>
-        ))}
-      </ul>
+      {tree?.map((unit, i) => (
+        <UnitSection key={unit.id} unit={unit} colorIndex={i} currentLessonId={currentLessonId} />
+      ))}
 
       {shopOpen && (
         <div
