@@ -91,6 +91,9 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
       Emergency Funds, Understanding Debt, Credit Scores — 12 lessons, 24 questions). Seed generator is
       now incremental: new units compile into the next numbered migration, so content can ship to
       already-migrated databases (see `docs/CONTENT_AUTHORING.md`). Units 7–20 from the plan outline remain.
+- [x] Production content deploy: 0003 migration applied to remote D1, worker redeployed with
+      `--env production` (deploy script fixed to include it) — verified live at
+      https://finlit.jensonsworld.workers.dev: 6 units, correct lock chain, zod validation returning 400s.
 
 ## Bugs found & fixed during manual testing
 - **Session cookie `Secure` flag in local dev**: was hardcoded `true`, which some browsers (Safari) silently
@@ -122,5 +125,11 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
 ## Remaining before this is more than a 6-unit course
 - Author the rest of the curriculum (`worker/seed/units.json`) past unit 6 — see candidate outline in the plan doc.
 - Set up real PostHog + Resend accounts and verify the live retention loop (see README "Required third-party accounts").
-- Wire up CI auto-deploy on push (Cloudflare Workers Builds, Git-connected) — currently deploys are manual via `wrangler deploy --env production`.
-- Ship units 2–6 to production: `npx wrangler d1 migrations apply finlit-db --remote` + redeploy (content is local-only until then).
+- Wire up CI auto-deploy on push (Cloudflare Workers Builds, Git-connected) — currently deploys are manual via
+  `npm run deploy` (which builds the frontend, then runs `wrangler deploy --env production`). Dashboard steps:
+  1. Cloudflare dashboard → Workers & Pages → **finlit** → Settings → **Build** → "Connect" next to "Source code".
+  2. Authorize GitHub, select the `jensonpp/looteh` repo, production branch `main`.
+  3. Build settings: root directory `worker`, build command `npm ci && cd ../frontend && npm ci && npm run build`,
+     deploy command `npx wrangler deploy --env production` (Workers Builds injects its own `CLOUDFLARE_API_TOKEN`).
+  4. Note: D1 migrations are NOT auto-applied by Workers Builds — after pushing new content, run
+     `npm run db:migrate:remote` in `worker/` once (append-only, so this is safe to repeat).
