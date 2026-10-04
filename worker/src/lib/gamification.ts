@@ -18,28 +18,56 @@ export type StreakState = {
   lastActiveDate: string | null // YYYY-MM-DD, server UTC date
 }
 
+export type StreakResult = {
+  streakCount: number
+  lastActiveDate: string
+  freezesConsumed: number
+}
+
 /**
  * Computes the next streak state given the server's current UTC date.
  * - Already active today -> no-op (idempotent on repeated activity same day).
  * - Active yesterday -> increment.
- * - Any other gap (or first-ever activity) -> reset to 1.
+ * - Gap of missed days -> each streak freeze in inventory covers one missed
+ *   day; if the user owns enough freezes the streak continues (freezes are
+ *   consumed), otherwise it resets to 1.
  */
-export function nextStreakState(current: StreakState, todayUtcDate: string): StreakState {
+export function nextStreakState(
+  current: StreakState,
+  todayUtcDate: string,
+  streakFreezesAvailable = 0,
+): StreakResult {
   if (current.lastActiveDate === todayUtcDate) {
-    return current
+    return {
+      streakCount: current.streakCount,
+      lastActiveDate: todayUtcDate,
+      freezesConsumed: 0,
+    }
   }
 
-  const yesterday = addDaysUtc(todayUtcDate, -1)
-  const isConsecutive = current.lastActiveDate === yesterday
+  const missedDays = current.lastActiveDate ? daysBetweenUtc(current.lastActiveDate, todayUtcDate) - 1 : 0
+  const isConsecutive = current.lastActiveDate === addDaysUtc(todayUtcDate, -1)
+  const freezesCoverGap = !isConsecutive && missedDays >= 1 && streakFreezesAvailable >= missedDays
 
-  return {
-    streakCount: isConsecutive ? current.streakCount + 1 : 1,
-    lastActiveDate: todayUtcDate,
+  if (isConsecutive || freezesCoverGap) {
+    return {
+      streakCount: current.streakCount + 1,
+      lastActiveDate: todayUtcDate,
+      freezesConsumed: freezesCoverGap ? missedDays : 0,
+    }
   }
+
+  return { streakCount: 1, lastActiveDate: todayUtcDate, freezesConsumed: 0 }
 }
 
 function addDaysUtc(dateStr: string, days: number): string {
   const date = new Date(`${dateStr}T00:00:00Z`)
   date.setUTCDate(date.getUTCDate() + days)
   return date.toISOString().slice(0, 10)
+}
+
+function daysBetweenUtc(fromStr: string, toStr: string): number {
+  const from = new Date(`${fromStr}T00:00:00Z`).getTime()
+  const to = new Date(`${toStr}T00:00:00Z`).getTime()
+  return Math.round((to - from) / 86_400_000)
 }

@@ -45,6 +45,7 @@ type Action =
     }
   | { type: 'continue' }
   | { type: 'retry' }
+  | { type: 'refill' }
 
 const initialState: PlayerState = {
   stepIndex: 0,
@@ -93,6 +94,8 @@ function reducer(state: PlayerState, action: Action): PlayerState {
       }
     case 'retry':
       return initialState
+    case 'refill':
+      return { ...state, hearts: STARTING_HEARTS }
     default:
       return state
   }
@@ -144,6 +147,8 @@ export default function LessonPlayerPage() {
   const [submitting, setSubmitting] = useState(false)
   const [failed, setFailed] = useState(false)
   const [retryCount, setRetryCount] = useState(0)
+  const [refilling, setRefilling] = useState(false)
+  const [refillError, setRefillError] = useState<string | null>(null)
 
   useEffect(() => {
     if (!lessonId) return
@@ -158,6 +163,21 @@ export default function LessonPlayerPage() {
     return <div className="mx-auto flex max-w-2xl flex-1 items-center justify-center px-6">Loading…</div>
   }
 
+  async function handleRefill() {
+    if (refilling) return
+    setRefilling(true)
+    setRefillError(null)
+    try {
+      await api.purchase('heart_refill')
+      dispatch({ type: 'refill' })
+      setFailed(false)
+    } catch {
+      setRefillError('Not enough gems — earn more from quests and achievements.')
+    } finally {
+      setRefilling(false)
+    }
+  }
+
   if (failed) {
     return (
       <div className="mx-auto flex max-w-2xl flex-1 flex-col items-center justify-center px-6 py-12 text-center">
@@ -166,7 +186,15 @@ export default function LessonPlayerPage() {
         <p className="mt-2 text-slate-600">
           You missed {STARTING_HEARTS} exercises. Review the concept and try again — repetition is how it sticks.
         </p>
+        {refillError && <p className="mt-3 text-sm text-red-600">{refillError}</p>}
         <div className="mt-8 flex gap-3">
+          <button
+            onClick={handleRefill}
+            disabled={refilling}
+            className="rounded-md bg-emerald-600 px-4 py-2 text-white disabled:opacity-50"
+          >
+            Refill hearts (20 💎)
+          </button>
           <button
             onClick={() => {
               setFailed(false)

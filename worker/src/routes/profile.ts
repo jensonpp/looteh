@@ -9,10 +9,17 @@ profile.use('*', attachUser, requireAuth)
 profile.get('/', async (c) => {
   const user = c.var.user!
   const stats = await c.env.DB.prepare(
-    'SELECT xp_total, streak_count, last_active_date, email_reminders_enabled FROM user_stats WHERE user_id = ?',
+    'SELECT xp_total, streak_count, last_active_date, email_reminders_enabled, gems, streak_freezes FROM user_stats WHERE user_id = ?',
   )
     .bind(user.userId)
-    .first<{ xp_total: number; streak_count: number; last_active_date: string | null; email_reminders_enabled: number }>()
+    .first<{
+      xp_total: number
+      streak_count: number
+      last_active_date: string | null
+      email_reminders_enabled: number
+      gems: number
+      streak_freezes: number
+    }>()
 
   return c.json({
     email: user.email,
@@ -20,6 +27,8 @@ profile.get('/', async (c) => {
     streakCount: stats?.streak_count ?? 0,
     lastActiveDate: stats?.last_active_date ?? null,
     emailRemindersEnabled: Boolean(stats?.email_reminders_enabled ?? true),
+    gems: stats?.gems ?? 0,
+    streakFreezes: stats?.streak_freezes ?? 0,
   })
 })
 

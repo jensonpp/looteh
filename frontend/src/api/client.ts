@@ -69,6 +69,36 @@ export type CheckResult = {
   explanation: string | null
 }
 
+export type AchievementEarned = { key: string; title: string; description: string; gemsReward: number }
+
+export type Quest = {
+  key: string
+  title: string
+  description: string
+  target: number
+  progress: number
+  gemsReward: number
+  completed: boolean
+  claimable: boolean
+}
+
+export type Achievement = {
+  key: string
+  title: string
+  description: string
+  gemsReward: number
+  earnedAt: string | null
+}
+
+export type ShopItem = {
+  key: 'streak_freeze' | 'heart_refill'
+  title: string
+  description: string
+  cost: number
+  owned: number | null
+  maxOwned: number | null
+}
+
 export const api = {
   signup: (email: string, password: string) =>
     request<{ user: SessionUser }>('/auth/signup', { method: 'POST', body: JSON.stringify({ email, password }) }),
@@ -94,7 +124,13 @@ export const api = {
       body: JSON.stringify(body),
     }),
   completeLesson: (lessonId: string, correctCount: number, totalQuestions: number) =>
-    request<{ score: number; bonusXpAwarded: number; streakCount: number }>(`/lessons/${lessonId}/complete`, {
+    request<{
+      score: number
+      bonusXpAwarded: number
+      streakCount: number
+      freezesConsumed: number
+      achievementsEarned: AchievementEarned[]
+    }>(`/lessons/${lessonId}/complete`, {
       method: 'POST',
       body: JSON.stringify({ correctCount, totalQuestions }),
     }),
@@ -105,10 +141,23 @@ export const api = {
       streakCount: number
       lastActiveDate: string | null
       emailRemindersEnabled: boolean
+      gems: number
+      streakFreezes: number
     }>('/profile'),
   updatePreferences: (emailRemindersEnabled: boolean) =>
     request<{ ok: true }>('/profile/preferences', {
       method: 'PATCH',
       body: JSON.stringify({ emailRemindersEnabled }),
+    }),
+  quests: () => request<{ gems: number; quests: Quest[] }>('/meta/quests'),
+  claimQuest: (key: string) =>
+    request<{ gems: number; gemsAwarded: number }>(`/meta/quests/${key}/claim`, { method: 'POST' }),
+  achievements: () => request<{ achievements: Achievement[] }>('/meta/achievements'),
+  shop: () =>
+    request<{ gems: number; streakFreezes: number; maxStreakFreezes: number; items: ShopItem[] }>('/meta/shop'),
+  purchase: (item: 'streak_freeze' | 'heart_refill') =>
+    request<{ gems: number; streakFreezes: number }>('/meta/shop/purchase', {
+      method: 'POST',
+      body: JSON.stringify({ item }),
     }),
 }

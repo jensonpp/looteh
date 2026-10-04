@@ -5,6 +5,8 @@ import { todayUtc } from '../lib/db'
 import { nextStreakState, xpForCorrectAnswer, xpForLessonComplete } from '../lib/gamification'
 import { logEvent } from '../lib/events'
 import { normalizeAnswer } from '../lib/text'
+import { bumpDailyXp, bumpQuest, evaluateLessonAchievements } from '../lib/meta'
+import { ACHIEVEMENTS } from '../lib/quests'
 import { answerSchema, checkSchema, lessonCompleteSchema, parseJsonBody } from '../lib/validation'
 
 const progress = new Hono<{ Bindings: Env; Variables: Variables }>()
@@ -39,6 +41,9 @@ progress.post('/questions/:questionId/answer', async (c) => {
     await c.env.DB.prepare('UPDATE user_stats SET xp_total = xp_total + ? WHERE user_id = ?')
       .bind(xpAwarded, user.userId)
       .run()
+    await bumpQuest(c.env, user.userId, 'answer_10_correct', 1)
+    await bumpQuest(c.env, user.userId, 'earn_30_xp', xpAwarded)
+    await bumpDailyXp(c.env, user.userId, xpAwarded)
   }
 
   // Mark lesson in_progress on first interaction (idempotent via upsert).
@@ -129,14 +134,17 @@ progress.post('/lessons/:lessonId/complete', async (c) => {
   const { correctCount, totalQuestions } = body.data
   const score = totalQuestions > 0 ? Math.round((correctCount / totalQuestions) * 100) : 0
 
-  const stats = await c.env.DB.prepare('SELECT streak_count, last_active_date FROM user_stats WHERE user_id = ?')
+  const stats = await c.env.DB.prepare(
+    'SELECT streak_count, last_active_date, streak_freezes FROM user_stats WHERE user_id = ?',
+  )
     .bind(user.userId)
-    .first<{ streak_count: number; last_active_date: string | null }>()
+    .first<{ streak_count: number; last_active_date: string | null; streak_freezes: number }>()
 
   const today = todayUtc()
   const nextStreak = nextStreakState(
     { streakCount: stats?.streak_count ?? 0, lastActiveDate: stats?.last_active_date ?? null },
     today,
+    stats?.streak_freezes ?? 0,
   )
   const bonusXp = xpForLessonComplete()
 
@@ -150,13 +158,26 @@ progress.post('/lessons/:lessonId/complete', async (c) => {
          updated_at = excluded.updated_at`,
     ).bind(user.userId, lessonId, score, new Date().toISOString()),
     c.env.DB.prepare(
-      'UPDATE user_stats SET xp_total = xp_total + ?, streak_count = ?, last_active_date = ? WHERE user_id = ?',
-    ).bind(bonusXp, nextStreak.streakCount, nextStreak.lastActiveDate, user.userId),
+      'UPDATE user_stats SET xp_total = xp_total + ?, streak_count = ?, last_active_date = ?, streak_freezes = streak_freezes - ? WHERE user_id = ?',
+    ).bind(bonusXp, nextStreak.streakCount, nextStreak.lastActiveDate, nextStreak.freezesConsumed, user.userId),
   ])
+
+  await bumpQuest(c.env, user.userId, 'finish_1_lesson', 1)
+  await bumpQuest(c.env, user.userId, 'earn_30_xp', bonusXp)
+  await bumpDailyXp(c.env, user.userId, bonusXp)
+
+  const earnedKeys = await evaluateLessonAchievements(c.env, user.userId, lessonId, score, nextStreak.streakCount)
+  const achievementsEarned = ACHIEVEMENTS.filter((a) => earnedKeys.includes(a.key))
 
   await logEvent(c.env, user.userId, 'lesson_completed', { lessonId, score })
 
-  return c.json({ score, bonusXpAwarded: bonusXp, streakCount: nextStreak.streakCount })
+  return c.json({
+    score,
+    bonusXpAwarded: bonusXp,
+    streakCount: nextStreak.streakCount,
+    freezesConsumed: nextStreak.freezesConsumed,
+    achievementsEarned,
+  })
 })
 
 export default progress

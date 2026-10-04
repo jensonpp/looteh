@@ -41,6 +41,10 @@ export const preferencesSchema = z.object({
   emailRemindersEnabled: z.boolean(),
 })
 
+export const purchaseSchema = z.object({
+  item: z.enum(['streak_freeze', 'heart_refill']),
+})
+
 /**
  * Parses and validates a JSON request body against a zod schema.
  * Returns a discriminated result: on failure the caller should return

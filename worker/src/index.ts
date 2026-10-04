@@ -4,6 +4,7 @@ import auth from './routes/auth'
 import content from './routes/content'
 import progress from './routes/progress'
 import profile from './routes/profile'
+import meta from './routes/meta'
 
 const app = new Hono<{ Bindings: Env; Variables: Variables }>()
 
@@ -25,6 +26,7 @@ app.route('/api/auth', auth)
 app.route('/api', content)
 app.route('/api', progress)
 app.route('/api/profile', profile)
+app.route('/api/meta', meta)
 
 // Any non-API route that didn't match a static asset falls back to the SPA shell
 // (client-side router in frontend/src/App.tsx handles the actual path).

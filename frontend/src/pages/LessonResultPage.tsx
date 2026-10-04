@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import { api } from '../api/client'
+import { api, type AchievementEarned } from '../api/client'
 import { useAppStore } from '../store/useAppStore'
 
 type ResultState = {
@@ -10,6 +10,7 @@ type ResultState = {
   correctXp: number
   heartsLeft: number
   bestCombo: number
+  achievementsEarned?: AchievementEarned[]
 }
 
 const CONFETTI_COLORS = ['#34d399', '#60a5fa', '#f472b6', '#fbbf24', '#a78bfa', '#f87171']
@@ -58,7 +59,7 @@ export default function LessonResultPage() {
   useEffect(() => {
     api
       .profile()
-      .then((p) => setStats({ xpTotal: p.xpTotal, streakCount: p.streakCount }))
+      .then((p) => setStats({ xpTotal: p.xpTotal, streakCount: p.streakCount, gems: p.gems }))
       .catch(() => {})
   }, [setStats])
 
@@ -101,6 +102,20 @@ export default function LessonResultPage() {
         ❤️ {result.heartsLeft} hearts left &nbsp;·&nbsp; 🔥 Best combo: {result.bestCombo} &nbsp;·&nbsp; Day streak:{' '}
         {result.streakCount}
       </p>
+
+      {result.achievementsEarned && result.achievementsEarned.length > 0 && (
+        <div className="mt-6 w-full max-w-sm rounded-2xl border border-emerald-300 bg-emerald-50 p-5 text-left">
+          <p className="text-sm font-semibold uppercase tracking-wide text-emerald-700">Achievements unlocked!</p>
+          <ul className="mt-3 flex flex-col gap-2">
+            {result.achievementsEarned.map((a) => (
+              <li key={a.key} className="flex items-center justify-between gap-2">
+                <span className="text-sm font-medium text-slate-900">🏆 {a.title}</span>
+                <span className="text-xs text-slate-500">+{a.gemsReward} 💎</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       <div className="mt-8 flex gap-3">
         <Link to="/" className="rounded-md bg-slate-900 px-4 py-2 text-white">

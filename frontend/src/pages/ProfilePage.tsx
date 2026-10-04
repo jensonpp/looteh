@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { api } from '../api/client'
+import { api, type Achievement } from '../api/client'
 import { useAppStore } from '../store/useAppStore'
 
 type ProfileData = {
@@ -9,11 +9,14 @@ type ProfileData = {
   streakCount: number
   lastActiveDate: string | null
   emailRemindersEnabled: boolean
+  gems: number
+  streakFreezes: number
 }
 
 export default function ProfilePage() {
   const setStats = useAppStore((s) => s.setStats)
   const [profile, setProfile] = useState<ProfileData | null>(null)
+  const [achievements, setAchievements] = useState<Achievement[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
@@ -22,9 +25,13 @@ export default function ProfilePage() {
       .profile()
       .then((p) => {
         setProfile(p)
-        setStats({ xpTotal: p.xpTotal, streakCount: p.streakCount })
+        setStats({ xpTotal: p.xpTotal, streakCount: p.streakCount, gems: p.gems })
       })
       .catch(() => setError('Failed to load profile.'))
+    api
+      .achievements()
+      .then(({ achievements }) => setAchievements(achievements))
+      .catch(() => {})
   }, [setStats])
 
   async function toggleReminders() {
@@ -60,7 +67,7 @@ export default function ProfilePage() {
             <p className="text-base text-slate-900">{profile.email}</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             <div className="rounded-lg border border-slate-200 px-4 py-3 text-center">
               <p className="text-2xl">⭐ {profile.xpTotal}</p>
               <p className="mt-1 text-sm text-slate-500">Total XP</p>
@@ -69,7 +76,33 @@ export default function ProfilePage() {
               <p className="text-2xl">🔥 {profile.streakCount}</p>
               <p className="mt-1 text-sm text-slate-500">Day streak</p>
             </div>
+            <div className="rounded-lg border border-slate-200 px-4 py-3 text-center">
+              <p className="text-2xl">💎 {profile.gems}</p>
+              <p className="mt-1 text-sm text-slate-500">Gems</p>
+            </div>
           </div>
+
+          {achievements && (
+            <section>
+              <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-500">Achievements</h2>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                {achievements.map((a) => (
+                  <div
+                    key={a.key}
+                    className={`rounded-lg border px-4 py-3 ${
+                      a.earnedAt ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50 opacity-60'
+                    }`}
+                  >
+                    <p className="text-sm font-medium text-slate-900">
+                      {a.earnedAt ? '🏆' : '🔒'} {a.title}
+                    </p>
+                    <p className="mt-0.5 text-xs text-slate-500">{a.description}</p>
+                    <p className="mt-1 text-xs text-slate-400">💎 {a.gemsReward}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           <div className="flex items-center justify-between rounded-lg border border-slate-200 px-4 py-3">
             <div>
