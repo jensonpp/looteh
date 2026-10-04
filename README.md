@@ -122,6 +122,12 @@ with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finl
       explanations); `/units/:id/lessons` returns `lastCompletedAt` so completed lessons older than
       7 days get a stale "🎯 Practice" pill. Migrations 0006+0007 applied to remote D1; all four
       stages verified live on production (quests, league, tree, practice). 43/43 tests.
+- [x] Dark-futuristic UI redesign: full theme overhaul of all 13 pages/components — aurora gradient
+      background, glassmorphism cards (`.glass`/`.glass-strong`), emerald→cyan gradient buttons with
+      neon glow, Space Grotesk display font, pulse-ring current-lesson indicator, dark inputs, and
+      consistent correct/wrong/selected feedback tints in the lesson & practice players. Design
+      system lives in `frontend/src/index.css`; app logic untouched (verified by className-stripped
+      diff against originals). `tsc --noEmit` clean, build passes, deployed live.
 
 ## Bugs found & fixed during manual testing
 - **Session cookie `Secure` flag in local dev**: was hardcoded `true`, which some browsers (Safari) silently
