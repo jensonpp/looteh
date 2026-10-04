@@ -1,0 +1,25 @@
+name = "finlit"
+main = "src/index.ts"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "../frontend/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "finlit-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# Daily streak-reminder email check (runs once a day; exact hour tuned later)
+[triggers]
+crons = ["0 13 * * *"]
+
+[vars]
+# Non-secret config. Secrets (JWT_SECRET, RESEND_API_KEY) are set via:
+#   wrangler secret put JWT_SECRET
+#   wrangler secret put RESEND_API_KEY
+APP_ENV = "development"
