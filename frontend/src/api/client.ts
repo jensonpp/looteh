@@ -38,7 +38,13 @@ export type UnitSummary = {
   completedLessonCount: number
 }
 
-export type LessonSummary = { id: string; title: string; status: string; bestScore: number }
+export type LessonSummary = {
+  id: string
+  title: string
+  status: string
+  bestScore: number
+  lastCompletedAt: string | null
+}
 
 export type TreeUnit = {
   id: string
@@ -131,6 +137,7 @@ export const api = {
   session: () => request<{ user: SessionUser | null }>('/auth/session'),
   units: () => request<{ units: UnitSummary[] }>('/units'),
   tree: () => request<{ tree: TreeUnit[] }>('/tree'),
+  practiceMistakes: () => request<{ questions: LessonQuestion[] }>('/practice/mistakes'),
   unitLessons: (unitId: string) => request<{ lessons: LessonSummary[] }>(`/units/${unitId}/lessons`),
   lesson: (lessonId: string) => request<{ lesson: LessonDetail }>(`/lessons/${lessonId}`),
   startLesson: (lessonId: string) => request<{ ok: true }>(`/lessons/${lessonId}/start`, { method: 'POST' }),

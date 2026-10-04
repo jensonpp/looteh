@@ -221,6 +221,9 @@ export default function SkillTreePage() {
           <Link to="/league" className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
             🏆 League
           </Link>
+          <Link to="/practice" className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
+            🎯 Practice
+          </Link>
           <Link to="/profile" className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
             Profile
           </Link>

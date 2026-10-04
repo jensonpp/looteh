@@ -123,11 +123,11 @@ content.get('/units/:unitId/lessons', async (c) => {
     .all<{ id: string; title: string; sort_order: number }>()
 
   const { results: progress } = await c.env.DB.prepare(
-    `SELECT lesson_id, status, best_score FROM user_lesson_progress
+    `SELECT lesson_id, status, best_score, updated_at FROM user_lesson_progress
      WHERE user_id = ? AND lesson_id IN (SELECT id FROM lessons WHERE unit_id = ?)`,
   )
     .bind(user.userId, unitId)
-    .all<{ lesson_id: string; status: string; best_score: number }>()
+    .all<{ lesson_id: string; status: string; best_score: number; updated_at: string }>()
 
   const progressByLesson = new Map(progress.map((p) => [p.lesson_id, p]))
 
@@ -137,6 +137,7 @@ content.get('/units/:unitId/lessons', async (c) => {
       title: l.title,
       status: progressByLesson.get(l.id)?.status ?? 'not_started',
       bestScore: progressByLesson.get(l.id)?.best_score ?? 0,
+      lastCompletedAt: progressByLesson.get(l.id)?.updated_at ?? null,
     })),
   })
 })

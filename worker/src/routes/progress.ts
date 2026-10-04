@@ -182,4 +182,67 @@ progress.post('/lessons/:lessonId/complete', async (c) => {
   })
 })
 
+// Practice hub: the user's ~10 most recently missed questions, most recent first.
+progress.get('/practice/mistakes', async (c) => {
+  const user = c.var.user!
+
+  const { results: missed } = await c.env.DB.prepare(
+    `SELECT qid FROM (
+       SELECT json_extract(payload_json, '$.questionId') AS qid, MAX(created_at) AS latest
+       FROM events
+       WHERE user_id = ? AND event_type = 'question_answered'
+         AND json_extract(payload_json, '$.isCorrect') = 0
+       GROUP BY qid
+       ORDER BY latest DESC
+       LIMIT 10
+     )`,
+  )
+    .bind(user.userId)
+    .all<{ qid: string }>()
+  const ids = missed.map((m) => m.qid).filter(Boolean)
+  if (ids.length === 0) return c.json({ questions: [] })
+
+  const placeholders = ids.map(() => '?').join(',')
+  const { results: questions } = await c.env.DB.prepare(
+    `SELECT id, prompt FROM questions WHERE id IN (${placeholders})`,
+  )
+    .bind(...ids)
+    .all<{ id: string; prompt: string }>()
+
+  const { results: options } = await c.env.DB.prepare(
+    `SELECT id, question_id, label, sort_order FROM answer_options
+     WHERE question_id IN (${placeholders}) ORDER BY sort_order`,
+  )
+    .bind(...ids)
+    .all<{ id: string; question_id: string; label: string; sort_order: number }>()
+
+  const { results: correctLabelLengths } = await c.env.DB.prepare(
+    `SELECT question_id, LENGTH(label) AS len FROM answer_options
+     WHERE is_correct = 1 AND question_id IN (${placeholders})`,
+  )
+    .bind(...ids)
+    .all<{ question_id: string; len: number }>()
+  const textEligible = new Set(correctLabelLengths.filter((r) => r.len <= 30).map((r) => r.question_id))
+
+  const optionsByQuestion = new Map<string, { id: string; label: string }[]>()
+  for (const opt of options) {
+    const list = optionsByQuestion.get(opt.question_id) ?? []
+    list.push({ id: opt.id, label: opt.label })
+    optionsByQuestion.set(opt.question_id, list)
+  }
+
+  // Preserve recency order (most recent miss first).
+  const byId = new Map(questions.map((q) => [q.id, q]))
+  const ordered = ids.map((id) => byId.get(id)).filter((q): q is { id: string; prompt: string } => Boolean(q))
+
+  return c.json({
+    questions: ordered.map((q) => ({
+      id: q.id,
+      prompt: q.prompt,
+      options: optionsByQuestion.get(q.id) ?? [],
+      acceptsTextAnswer: textEligible.has(q.id),
+    })),
+  })
+})
+
 export default progress
