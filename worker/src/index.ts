@@ -9,6 +9,18 @@ const app = new Hono<{ Bindings: Env; Variables: Variables }>()
 
 app.get('/api/health', (c) => c.json({ ok: true, env: c.env.APP_ENV }))
 
+// Consistent JSON error envelope for uncaught exceptions. In non-production environments
+// the raw message is included to speed up debugging; production hides internals from clients
+// but still logs the full error to the Worker's console (visible via `wrangler tail`).
+app.onError((err, c) => {
+  console.error('Unhandled error:', err)
+  const body: { error: string; message?: string } = { error: 'internal_error' }
+  if (c.env.APP_ENV !== 'production') {
+    body.message = err instanceof Error ? `${err.message}\n${err.stack}` : String(err)
+  }
+  return c.json(body, 500)
+})
+
 app.route('/api/auth', auth)
 app.route('/api', content)
 app.route('/api', progress)

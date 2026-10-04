@@ -11,7 +11,7 @@ not_found_handling = "single-page-application"
 [[d1_databases]]
 binding = "DB"
 database_name = "finlit-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "3be6e61c-2ea2-4204-a7c0-56b3eb1d0d83"
 migrations_dir = "migrations"
 
 # Daily streak-reminder email check (runs once a day; exact hour tuned later)
@@ -23,3 +23,23 @@ crons = ["0 13 * * *"]
 #   wrangler secret put JWT_SECRET
 #   wrangler secret put RESEND_API_KEY
 APP_ENV = "development"
+
+[env.production]
+name = "finlit"
+
+[env.production.vars]
+APP_ENV = "production"
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "finlit-db"
+database_id = "3be6e61c-2ea2-4204-a7c0-56b3eb1d0d83"
+migrations_dir = "migrations"
+
+[env.production.assets]
+directory = "../frontend/dist"
+binding = "ASSETS"
+not_found_handling = "single-page-application"
+
+[env.production.triggers]
+crons = ["0 13 * * *"]

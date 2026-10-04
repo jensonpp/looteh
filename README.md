@@ -42,15 +42,23 @@ Runs plain Node Vitest (not `@cloudflare/vitest-pool-workers`) against `gamifica
 sidesteps a known `vitest-pool-workers` module-resolution bug with spaces in the absolute project path.
 
 ## Deploy
+**Live:** https://finlit.jensonsworld.workers.dev (Cloudflare Worker, remote D1, deployed manually — not yet
+wired to CI/auto-deploy-on-push; see Status below).
+
 ```bash
-npx wrangler d1 create finlit-db          # then paste the returned ID into worker/wrangler.toml
+npx wrangler d1 create finlit-db          # then paste the returned ID into worker/wrangler.toml under [env.production.d1_databases]
 npx wrangler d1 migrations apply finlit-db --remote
 cd worker
-npx wrangler secret put JWT_SECRET
-npx wrangler secret put RESEND_API_KEY
+npx wrangler secret put JWT_SECRET --env production      # pipe directly, NOT through a filtering wrapper — see Bugs below
+npx wrangler secret put RESEND_API_KEY --env production
 cd ..
-npm run deploy
+npm run build:frontend
+cd worker && npx wrangler deploy --env production
 ```
+
+Note: `wrangler.toml` has a top-level `[vars] APP_ENV = "development"` (used by local `wrangler dev`, keeps
+the session cookie's `Secure` flag off for plain `http://localhost`) and a separate `[env.production]` block
+with `APP_ENV = "production"` (enforces `Secure` cookies, same Worker name `finlit` so it's a single script).
 
 ## Required third-party accounts (set up before Milestone 6)
 - **PostHog** — free tier, set `VITE_POSTHOG_KEY` (and optionally `VITE_POSTHOG_HOST`) in `frontend/.env.local`.
@@ -72,9 +80,11 @@ npm run deploy
 - [x] Milestone 7 — Frontend auth & shell (Login/Signup cross-links, RequireAuth, router, Legal+disclaimer footer)
 - [x] Milestone 8 — Skill tree & lesson player: real unit list (lock/complete state), lesson list, full
       concept→quiz→result flow confirmed working live in-browser
-- [ ] Milestone 9 — Profile page UI (backend route exists; no page yet) + reminder-email toggle UI
-- [ ] Milestone 10 — Build & deploy (remote D1, real PostHog/Resend keys, `wrangler deploy`)
-- [ ] Milestone 11 — Hardening (zod validation, consistent error handling)
+- [x] Milestone 9 — Profile page UI (XP/streak display, email-reminder toggle) — verified via curl end-to-end
+- [x] Milestone 10 — Remote deploy: live at https://finlit.jensonsworld.workers.dev (remote D1 created +
+      migrated, JWT_SECRET set as a Worker secret, deployed via `wrangler deploy --env production`) —
+      verified via curl: signup/login/logout/units/profile all work against the live URL
+- [ ] Milestone 11 — Hardening (zod validation; consistent error handling partially done — see `app.onError` below)
 
 ## Bugs found & fixed during manual testing
 - **Session cookie `Secure` flag in local dev**: was hardcoded `true`, which some browsers (Safari) silently
@@ -83,9 +93,28 @@ npm run deploy
 - **SPA fallback not reached for client-router paths** (e.g. `/login` 404'd when hit directly): the Worker's
   Hono app needed an explicit catch-all (`app.get('*', c => c.env.ASSETS.fetch(c.req.raw))`) — Workers don't
   auto-fall-back to `[assets]` SPA mode once a `main` script is handling the request.
+- **Deployed as Cloudflare Pages instead of Workers**: the dashboard "Connect to Git" flow defaulted to a
+  Pages project, which doesn't support this app's D1 bindings/Cron Trigger/Workers static-assets config the
+  same way. Fixed by deploying directly as a Worker via `wrangler deploy --env production` instead (CI
+  auto-deploy on push can still be wired up later via Workers Builds, not Pages).
+- **Frontend never built on CI**: initial dashboard build command only ran `npm install` in `worker/`, so
+  `frontend/dist` (gitignored) never existed remotely → 404 on every route. Added a `ci:build` npm script
+  (`worker/package.json`) that builds the frontend first.
+- **`JWT_SECRET` ended up empty in production**: piping the generated secret through our shell wrapper for
+  `wrangler secret put` silently dropped stdin, so the stored secret was an empty string — `crypto.subtle
+  .importKey` then threw `Imported HMAC key length (0)...` on every signup/login, visible only via
+  `wrangler tail` (confirmed via a temporary verbose `app.onError`, since removed/gated to non-production).
+  Fixed by piping directly (bypassing the wrapper) and re-setting the secret.
+- **`verifyPassword` ignored the iteration count embedded in stored hashes**: always used the current
+  `PBKDF2_ITERATIONS` constant instead of the value in `pbkdf2$<iterations>$...`, so lowering the constant
+  (done alongside this round of fixes) would have broken login for any existing users. Fixed to parse and use
+  the stored iteration count.
+- Added a global `app.onError` handler for a consistent JSON error envelope (`{error, message?}`), with the
+  `message` field suppressed when `APP_ENV === 'production'` to avoid leaking internals to real users.
 
 
 ## Remaining before this is more than a 1-unit proof of concept
 - Author the rest of the curriculum (`worker/seed/units.json`) past unit 1 — see candidate outline in the plan doc.
-- Build the Profile page UI.
 - Set up real PostHog + Resend accounts and verify the live retention loop (see README "Required third-party accounts").
+- Finish Milestone 11 hardening (zod input validation on all route bodies).
+- Wire up CI auto-deploy on push (Cloudflare Workers Builds, Git-connected) — currently deploys are manual via `wrangler deploy --env production`.
