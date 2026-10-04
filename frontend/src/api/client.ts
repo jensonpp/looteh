@@ -28,6 +28,26 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
 export type SessionUser = { id: string; email: string }
 
+export type UnitSummary = {
+  id: string
+  slug: string
+  title: string
+  locked: boolean
+  completed: boolean
+  lessonCount: number
+  completedLessonCount: number
+}
+
+export type LessonSummary = { id: string; title: string; status: string; bestScore: number }
+
+export type LessonDetail = {
+  id: string
+  unitId: string
+  title: string
+  conceptMarkdown: string
+  questions: { id: string; prompt: string; options: { id: string; label: string }[] }[]
+}
+
 export const api = {
   signup: (email: string, password: string) =>
     request<{ user: SessionUser }>('/auth/signup', { method: 'POST', body: JSON.stringify({ email, password }) }),
@@ -35,4 +55,20 @@ export const api = {
     request<{ user: SessionUser }>('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
   logout: () => request<{ ok: true }>('/auth/logout', { method: 'POST' }),
   session: () => request<{ user: SessionUser | null }>('/auth/session'),
+  units: () => request<{ units: UnitSummary[] }>('/units'),
+  unitLessons: (unitId: string) => request<{ lessons: LessonSummary[] }>(`/units/${unitId}/lessons`),
+  lesson: (lessonId: string) => request<{ lesson: LessonDetail }>(`/lessons/${lessonId}`),
+  startLesson: (lessonId: string) => request<{ ok: true }>(`/lessons/${lessonId}/start`, { method: 'POST' }),
+  answerQuestion: (questionId: string, optionId: string) =>
+    request<{ correct: boolean; xpAwarded: number }>(`/questions/${questionId}/answer`, {
+      method: 'POST',
+      body: JSON.stringify({ optionId }),
+    }),
+  completeLesson: (lessonId: string, correctCount: number, totalQuestions: number) =>
+    request<{ score: number; bonusXpAwarded: number; streakCount: number }>(`/lessons/${lessonId}/complete`, {
+      method: 'POST',
+      body: JSON.stringify({ correctCount, totalQuestions }),
+    }),
+  profile: () =>
+    request<{ email: string; xpTotal: number; streakCount: number; emailRemindersEnabled: boolean }>('/profile'),
 }

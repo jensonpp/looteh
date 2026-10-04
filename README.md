@@ -60,12 +60,21 @@ npm run deploy
 - [x] Milestone 1 — Scaffolding
 - [x] Milestone 2 — DB schema (v1 only; hearts/badges deferred to v2)
 - [x] Milestone 3 — Auth backend (verified via curl: signup/login/session/logout, cookie flags, revocation)
-- [ ] Milestone 0 — Content validation (do this next, in parallel with content authoring)
-- [ ] Milestone 4 — Seed content
-- [ ] Milestone 5 — Content & progress backend
-- [ ] Milestone 6 — Analytics & retention plumbing (PostHog events wired on frontend; Cron handler stubbed, needs Resend key + live testing)
-- [x] Milestone 7 (partial) — Frontend auth & shell (Login/Signup/RequireAuth/router/Legal+disclaimer footer all working end-to-end)
-- [ ] Milestone 8 — Skill tree & lesson player
-- [ ] Milestone 9 — Profile & preferences
-- [ ] Milestone 10 — Build & deploy (remote)
+- [x] Milestone 0/4 — Content pipeline + vertical slice: `units.json` schema, `generate-seed-sql.ts` compiler,
+      1 real unit (Money Mindset & Goals, 2 lessons, 4 questions) seeded locally
+- [x] Milestone 5 — Content & progress backend (`/units`, `/units/:id/lessons`, `/lessons/:id`,
+      `/questions/:id/answer`, `/lessons/:id/complete`, `/profile`) — verified via curl: correctness never
+      leaks to client, XP/streak/best-score all update correctly, events logged to D1
+- [x] Milestone 6 (partial) — `events` table + server-side logging wired; PostHog frontend hook present but
+      needs a real `VITE_POSTHOG_KEY`; Resend Cron handler stubbed but needs a real `RESEND_API_KEY` + live test
+- [x] Milestone 7 — Frontend auth & shell (Login/Signup cross-links, RequireAuth, router, Legal+disclaimer footer)
+- [x] Milestone 8 — Skill tree & lesson player: real unit list (lock/complete state), lesson list, full
+      concept→quiz→result flow verified end-to-end via curl through both Vite dev proxy and the Worker directly
+- [ ] Milestone 9 — Profile page UI (backend route exists; no page yet) + reminder-email toggle UI
+- [ ] Milestone 10 — Build & deploy (remote D1, real PostHog/Resend keys, `wrangler deploy`)
 - [ ] Milestone 11 — Hardening (zod validation, consistent error handling)
+
+## Remaining before this is more than a 1-unit proof of concept
+- Author the rest of the curriculum (`worker/seed/units.json`) past unit 1 — see candidate outline in the plan doc.
+- Build the Profile page UI.
+- Set up real PostHog + Resend accounts and verify the live retention loop (see README "Required third-party accounts").

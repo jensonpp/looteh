@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router-dom'
-import { api } from '../api/client'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { api, type UnitSummary } from '../api/client'
 import { useAppStore } from '../store/useAppStore'
 
 export default function SkillTreePage() {
@@ -7,7 +8,22 @@ export default function SkillTreePage() {
   const streakCount = useAppStore((s) => s.streakCount)
   const xpTotal = useAppStore((s) => s.xpTotal)
   const setUser = useAppStore((s) => s.setUser)
+  const setStats = useAppStore((s) => s.setStats)
   const navigate = useNavigate()
+
+  const [units, setUnits] = useState<UnitSummary[] | null>(null)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    api
+      .units()
+      .then(({ units }) => setUnits(units))
+      .catch(() => setError('Failed to load units.'))
+    api
+      .profile()
+      .then((p) => setStats({ xpTotal: p.xpTotal, streakCount: p.streakCount }))
+      .catch(() => {})
+  }, [setStats])
 
   async function handleLogout() {
     await api.logout().catch(() => {})
@@ -28,9 +44,31 @@ export default function SkillTreePage() {
           Log out
         </button>
       </div>
-      <p className="mt-10 text-slate-500">
-        Skill tree / lesson content lands here in Milestone 8, once Milestone 4's seed content exists.
-      </p>
+
+      {error && <p className="mt-8 text-sm text-red-600">{error}</p>}
+
+      <ul className="mt-10 flex flex-col gap-3">
+        {units?.map((unit) => (
+          <li key={unit.id}>
+            {unit.locked ? (
+              <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-slate-400">
+                <span>🔒 {unit.title}</span>
+                <span className="text-xs">Locked</span>
+              </div>
+            ) : (
+              <Link
+                to={`/units/${unit.id}`}
+                className="flex items-center justify-between rounded-lg border border-slate-300 px-4 py-3 hover:border-slate-900"
+              >
+                <span>{unit.completed ? '✅' : '📘'} {unit.title}</span>
+                <span className="text-xs text-slate-500">
+                  {unit.completedLessonCount}/{unit.lessonCount} lessons
+                </span>
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

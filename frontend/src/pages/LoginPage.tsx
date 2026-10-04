@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { api, ApiError } from '../api/client'
 import { useAppStore } from '../store/useAppStore'
 import { identify, track } from '../lib/analytics'
@@ -58,6 +58,12 @@ export default function LoginPage() {
           {loading ? 'Logging in…' : 'Log in'}
         </button>
       </form>
+      <p className="mt-4 text-sm text-slate-500">
+        Don't have an account?{' '}
+        <Link to="/signup" className="underline hover:text-slate-700">
+          Sign up
+        </Link>
+      </p>
     </div>
   )
 }

@@ -8,6 +8,9 @@ import RequireAuth from './components/RequireAuth'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import SkillTreePage from './pages/SkillTreePage'
+import UnitLessonsPage from './pages/UnitLessonsPage'
+import LessonPlayerPage from './pages/LessonPlayerPage'
+import LessonResultPage from './pages/LessonResultPage'
 import LegalPage from './pages/LegalPage'
 
 export default function App() {
@@ -35,6 +38,30 @@ export default function App() {
             element={
               <RequireAuth>
                 <SkillTreePage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/units/:unitId"
+            element={
+              <RequireAuth>
+                <UnitLessonsPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/lessons/:lessonId"
+            element={
+              <RequireAuth>
+                <LessonPlayerPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/lessons/:lessonId/result"
+            element={
+              <RequireAuth>
+                <LessonResultPage />
               </RequireAuth>
             }
           />

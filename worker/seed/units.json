@@ -1,0 +1,54 @@
+{
+  "units": [
+    {
+      "slug": "money-mindset-goals",
+      "title": "Money Mindset & Goals",
+      "unlockRequiresUnitSlug": null,
+      "lessons": [
+        {
+          "title": "Why Financial Literacy Matters",
+          "conceptMarkdown": "## Why This Matters\n\nMoney isn't just numbers — it's a tool for buying *time*, *options*, and *security*. People who understand a few core concepts (budgeting, saving, compound interest) consistently make better long-term decisions than those who don't, regardless of how much they earn.\n\nThis course won't tell you what stocks to buy or make you rich overnight. It teaches the fundamentals: how to control your spending, build a safety net, and understand how money grows over time.\n\n**This is educational content, not financial advice.**",
+          "questions": [
+            {
+              "prompt": "What is the main goal of this course?",
+              "options": [
+                { "label": "To teach core financial concepts and habits", "isCorrect": true },
+                { "label": "To give you specific stock picks", "isCorrect": false },
+                { "label": "To guarantee you get rich quickly", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "True or false: understanding money matters even if you don't earn a lot.",
+              "options": [
+                { "label": "True", "isCorrect": true },
+                { "label": "False", "isCorrect": false }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Setting a Financial Goal",
+          "conceptMarkdown": "## Setting a Financial Goal\n\nA goal without a number and a date is just a wish. Compare:\n\n- ❌ \"I want to save more money.\"\n- ✅ \"I want to save $1,000 for an emergency fund in the next 6 months.\"\n\nGood financial goals are **specific** (a clear target), **measurable** (a number), and **time-bound** (a deadline). This makes it possible to track progress and know when you've actually succeeded.",
+          "questions": [
+            {
+              "prompt": "Which of these is the BEST example of a specific financial goal?",
+              "options": [
+                { "label": "Save $1,000 for an emergency fund in 6 months", "isCorrect": true },
+                { "label": "Try to save some money this year", "isCorrect": false },
+                { "label": "Be better with money", "isCorrect": false }
+              ]
+            },
+            {
+              "prompt": "A good financial goal should be specific, measurable, and...",
+              "options": [
+                { "label": "Time-bound", "isCorrect": true },
+                { "label": "Secret", "isCorrect": false },
+                { "label": "Unlimited", "isCorrect": false }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
