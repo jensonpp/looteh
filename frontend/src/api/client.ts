@@ -70,5 +70,16 @@ export const api = {
       body: JSON.stringify({ correctCount, totalQuestions }),
     }),
   profile: () =>
-    request<{ email: string; xpTotal: number; streakCount: number; emailRemindersEnabled: boolean }>('/profile'),
+    request<{
+      email: string
+      xpTotal: number
+      streakCount: number
+      lastActiveDate: string | null
+      emailRemindersEnabled: boolean
+    }>('/profile'),
+  updatePreferences: (emailRemindersEnabled: boolean) =>
+    request<{ ok: true }>('/profile/preferences', {
+      method: 'PATCH',
+      body: JSON.stringify({ emailRemindersEnabled }),
+    }),
 }

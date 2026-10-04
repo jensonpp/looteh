@@ -40,9 +40,14 @@ export default function SkillTreePage() {
             🔥 Streak: {streakCount} &nbsp;·&nbsp; ⭐ XP: {xpTotal}
           </p>
         </div>
-        <button onClick={handleLogout} className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
-          Log out
-        </button>
+        <div className="flex items-center gap-2">
+          <Link to="/profile" className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
+            Profile
+          </Link>
+          <button onClick={handleLogout} className="rounded-md border border-slate-300 px-3 py-1.5 text-sm">
+            Log out
+          </button>
+        </div>
       </div>
 
       {error && <p className="mt-8 text-sm text-red-600">{error}</p>}

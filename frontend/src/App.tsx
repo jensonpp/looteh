@@ -12,6 +12,7 @@ import UnitLessonsPage from './pages/UnitLessonsPage'
 import LessonPlayerPage from './pages/LessonPlayerPage'
 import LessonResultPage from './pages/LessonResultPage'
 import LegalPage from './pages/LegalPage'
+import ProfilePage from './pages/ProfilePage'
 
 export default function App() {
   const setUser = useAppStore((s) => s.setUser)
@@ -62,6 +63,14 @@ export default function App() {
             element={
               <RequireAuth>
                 <LessonResultPage />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <ProfilePage />
               </RequireAuth>
             }
           />
